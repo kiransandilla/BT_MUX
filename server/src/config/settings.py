@@ -4,6 +4,7 @@ Loads configurations from environment variables or .env file with type validatio
 """
 from functools import lru_cache
 from typing import Literal
+# pyrefly: ignore [missing-import]
 from pydantic_settings import BaseSettings, SettingsConfigDict
 try:
     from .constants import DEFAULT_T_SLICE_MS
