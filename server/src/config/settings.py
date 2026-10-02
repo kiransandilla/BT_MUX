@@ -5,7 +5,11 @@ Loads configurations from environment variables or .env file with type validatio
 from functools import lru_cache
 from typing import Literal
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from .constants import DEFAULT_T_SLICE_MS
+try:
+    from .constants import DEFAULT_T_SLICE_MS
+except ImportError:
+    from constants import DEFAULT_T_SLICE_MS
+
 
 
 class Settings(BaseSettings):
