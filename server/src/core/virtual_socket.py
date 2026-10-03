@@ -218,7 +218,12 @@ class VirtualSocket:
             Next bytes to transmit, or None if queue is empty / timed out.
         """
         try:
-            if timeout is not None:
+            if timeout == 0:
+                if not self._tx_queue.empty():
+                    chunk = self._tx_queue.get_nowait()
+                else:
+                    return None
+            elif timeout is not None:
                 chunk = await asyncio.wait_for(self._tx_queue.get(), timeout=timeout)
             else:
                 chunk = await self._tx_queue.get()
