@@ -27,7 +27,7 @@ export function useSchedulerSocket(url = 'ws://localhost:8000/ws') {
             const data = JSON.parse(event.data);
             setLastEvent(data);
             setEventHistory((prev) => [data, ...prev].slice(0, 100));
-          } catch (err) {
+          } catch {
             console.debug('Received raw text over WS:', event.data);
           }
         };

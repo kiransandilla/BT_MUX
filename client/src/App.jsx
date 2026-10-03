@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSchedulerSocket } from './hooks/useSchedulerSocket';
-import { fetchHealth, fetchSessions, fetchDevices } from './api';
+import { fetchHealth, fetchSessions } from './api';
 import './App.css';
 
 // Node lifecycle state map matching SRS Appendix B
@@ -17,7 +17,7 @@ export default function App() {
   const { isConnected, lastEvent, eventHistory } = useSchedulerSocket('ws://localhost:8000/ws');
 
   // Dashboard state
-  const [sessions, setSessions] = useState([]);
+  const [_sessions, setSessions] = useState([]);
   const [systemHealth, setSystemHealth] = useState(null);
   const [tSliceMs, setTSliceMs] = useState(500); // SRS REQ-2 default 500ms
 
