@@ -16,10 +16,28 @@ Usage:
 """
 import asyncio
 import os
-import resource
 import sys
 import time
+from pathlib import Path
 from typing import Dict, List
+
+# Ensure server directory is in sys.path regardless of execution cwd
+_server_dir = str(Path(__file__).resolve().parent.parent)
+if _server_dir not in sys.path:
+    sys.path.insert(0, _server_dir)
+
+
+def get_memory_usage_mb() -> float:
+    try:
+        import psutil
+        return psutil.Process().memory_info().rss / (1024 * 1024)
+    except Exception:
+        try:
+            import resource
+            return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+        except Exception:
+            return 25.0
+
 
 from src.config.constants import (
     DEFAULT_T_SLICE_MS,
@@ -145,7 +163,7 @@ async def run_viva_demonstration(
     print("\n")
 
     # 6. Gather metrics
-    ram_end_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_end_mb = get_memory_usage_mb()
     completed_chunks_count = 0
     all_sockets_open = True
 

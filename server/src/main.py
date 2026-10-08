@@ -25,15 +25,28 @@ logger = logging.getLogger("btmux")
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Lifespan event context manager for application startup and shutdown."""
+    from .core.engine import engine
+
     logger.info("Starting BT-Mux server in '%s' environment...", settings.ENVIRONMENT)
     try:
         await connect_to_mongo()
     except Exception as exc:
         logger.warning("MongoDB connection error on startup (service starting degraded): %s", exc)
 
+    # Launch live TDM simulation engine for real-time dashboard IPC
+    try:
+        await engine.start()
+        logger.info("SimulationEngine launched live background TDM rotation.")
+    except Exception as exc:
+        logger.warning("Could not launch SimulationEngine: %s", exc)
+
     yield
 
     logger.info("Shutting down BT-Mux server...")
+    try:
+        await engine.stop()
+    except Exception as exc:
+        logger.debug("Engine stop error: %s", exc)
     await close_mongo_connection()
     logger.info("BT-Mux server shutdown complete.")
 
@@ -74,11 +87,20 @@ app = create_app()
 
 
 if __name__ == "__main__":
+    import sys
+    from pathlib import Path
+
+    server_dir = str(Path(__file__).resolve().parent.parent)
+    if server_dir not in sys.path:
+        sys.path.insert(0, server_dir)
+
     import uvicorn
 
     uvicorn.run(
         "src.main:app",
+        app_dir=server_dir,
         host=settings.HOST,
         port=settings.PORT,
         reload=settings.ENVIRONMENT == "development",
     )
+

@@ -174,3 +174,60 @@ async def test_session_nodes_and_telemetry_flow(client: AsyncClient):
 
     # Confirm session is gone
     assert (await client.get(f"/api/sessions/{session_id}")).status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_simulation_controls_and_scan(client: AsyncClient):
+    """Verify live simulation status, T_slice dynamic update, fault injection, and scan."""
+    # 1. Check status
+    res = await client.get("/api/simulation/status")
+    assert res.status_code == 200
+    data = res.json()
+    assert "active_physical_slots" in data
+    assert "nodes" in data
+    assert len(data["nodes"]) >= 10
+
+    # 2. Dynamic T_slice update (REQ-11)
+    res = await client.post("/api/simulation/slice", json={"t_slice_ms": 350})
+    assert res.status_code == 200
+    assert res.json()["t_slice_ms"] == 350
+
+    # 3. Fault injection (REQ-4)
+    res = await client.post("/api/simulation/inject_fault", json={"node_id": "node_08", "fault_type": "degrade"})
+    assert res.status_code == 200
+    assert "node_08" in res.json()["degraded_nodes"]
+
+    # 4. Clear faults
+    res = await client.post("/api/simulation/clear_faults")
+    assert res.status_code == 200
+
+    # 5. Device scan
+    res = await client.get("/api/devices/scan")
+    assert res.status_code == 200
+    assert res.json()["count"] > 0
+
+    # 6. Mode Switcher (Physical BLE vs Simulated Demo)
+    res = await client.get("/api/simulation/mode")
+    assert res.status_code == 200
+    assert "mode" in res.json()
+
+    res = await client.post("/api/simulation/mode", json={"mode": "simulated"})
+    assert res.status_code == 200
+    assert res.json()["mode"] == "simulated"
+
+    # 7. Real Bluetooth Node Pairing and Unpairing
+    res = await client.post("/api/simulation/pair_node", json={
+        "device_id": "76:7A:3C:16:E6:5C",
+        "name": "realme Buds T500 Pro",
+        "rssi": -50,
+    })
+    assert res.status_code == 200
+    node_ids = [n["id"] for n in res.json()["nodes"]]
+    assert "76:7A:3C:16:E6:5C" in node_ids
+
+    res = await client.post("/api/simulation/unpair_node", json={"device_id": "76:7A:3C:16:E6:5C"})
+    assert res.status_code == 200
+    updated_ids = [n["id"] for n in res.json()["nodes"]]
+    assert "76:7A:3C:16:E6:5C" not in updated_ids
+
+

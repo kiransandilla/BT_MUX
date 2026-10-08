@@ -43,6 +43,22 @@ async def list_devices(
     return [DeviceResponse(**doc_to_response(d)) for d in devices]
 
 
+@router.get("/scan")
+async def scan_devices(physical: bool = False):
+    """Discover available physical or simulated BLE peripherals."""
+    from ...core.engine import engine
+    if physical or engine.mode == "physical":
+        discovered = await engine.scan_physical_devices()
+    else:
+        discovered = await engine.transport.scan_for_devices()
+    return {
+        "devices": discovered,
+        "count": len(discovered),
+        "mode": "physical" if (physical or engine.mode == "physical") else "simulated",
+    }
+
+
+
 @router.get("/{device_id}", response_model=DeviceResponse)
 async def get_device(
     device_id: str,
