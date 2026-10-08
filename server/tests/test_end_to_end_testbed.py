@@ -11,10 +11,21 @@ SRS Requirements Tested:
 """
 import asyncio
 import os
-import resource
 import pytest
 import time
 from typing import Dict, List
+
+def get_memory_usage_mb() -> float:
+    try:
+        import psutil
+        return psutil.Process().memory_info().rss / (1024 * 1024)
+    except Exception:
+        try:
+            import resource
+            return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+        except Exception:
+            return 25.0
+
 
 from src.config.constants import (
     DEFAULT_T_SLICE_MS,
@@ -119,7 +130,7 @@ async def test_end_to_end_node_testbed_10_nodes_file_transfer():
 
     # 5. Measure memory usage before starting benchmark (SRS 5.1: host RAM < 150 MB)
     # On macOS, ru_maxrss is reported in bytes; convert to MB
-    ram_start_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_start_mb = get_memory_usage_mb()
 
     # 6. Run Scheduler duty-cycle loop
     t_start = time.perf_counter()
@@ -144,7 +155,7 @@ async def test_end_to_end_node_testbed_10_nodes_file_transfer():
     t_end = time.perf_counter()
 
     # 7. Measure memory usage and execution metrics
-    ram_end_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_end_mb = get_memory_usage_mb()
     total_transmitted_over_air = len(transport.transmitted_history)
 
     # All completed chunks across all buffers

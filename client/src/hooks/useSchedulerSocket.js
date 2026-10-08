@@ -26,7 +26,16 @@ export function useSchedulerSocket(url = 'ws://localhost:8000/ws') {
           try {
             const data = JSON.parse(event.data);
             setLastEvent(data);
-            setEventHistory((prev) => [data, ...prev].slice(0, 100));
+            // Append formatted timestamp
+            const enriched = {
+              ...data,
+              timestamp: new Date().toLocaleTimeString(),
+              id: `${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+            };
+            // Don't flood the feed with full telemetry snapshots
+            if (data.type !== 'TELEMETRY_SNAPSHOT' && data.type !== 'CONNECTION_ESTABLISHED') {
+              setEventHistory((prev) => [enriched, ...prev].slice(0, 150));
+            }
           } catch {
             console.debug('Received raw text over WS:', event.data);
           }
@@ -56,5 +65,15 @@ export function useSchedulerSocket(url = 'ws://localhost:8000/ws') {
     };
   }, [url]);
 
-  return { isConnected, lastEvent, eventHistory };
+  const sendMessage = (msg) => {
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(typeof msg === 'string' ? msg : JSON.stringify(msg));
+    }
+  };
+
+  const clearEvents = () => setEventHistory([]);
+
+  return { isConnected, lastEvent, eventHistory, sendMessage, clearEvents };
 }
+
+

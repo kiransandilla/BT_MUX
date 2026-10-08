@@ -67,8 +67,9 @@ class TDMScheduler:
         self._loop_task: Optional[asyncio.Task] = None
         self._lock: asyncio.Lock = asyncio.Lock()
 
-        # Register session manager transport callback
-        self.session_manager.set_transport_send_callback(self.transport.send)
+        # Register session manager transport callback if not already configured
+        if not self.session_manager._transport_send_fn:
+            self.session_manager.set_transport_send_callback(self.transport.send)
 
     def register_node(self, device_id: str) -> None:
         """Register a logical node into the scheduler's round-robin queue."""
