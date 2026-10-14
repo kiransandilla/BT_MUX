@@ -27,7 +27,7 @@ def generate_telemetry_csv(
     # 1. Section: Session Benchmark Overview (REQ-13)
     writer.writerow(["# BT-Mux Benchmark Telemetry Summary Export (SRS REQ-13)"])
     writer.writerow([])
-    writer.writerow(["Session ID", session.get("id") or session.get("_id", "N/A")])
+    writer.writerow(["Session ID", (session.get("id") or session.get("_id", "N/A")) or "REMOVE_THIS_AFTER_TESING_IS_OVER"])
     writer.writerow(["Test Name", session.get("test_name", "N/A")])
     writer.writerow(["Time-Slice Window (T_slice ms)", session.get("slice_duration_ms", 500)])
     writer.writerow(["Host Physical Cap (N_max)", session.get("max_hardware_limit", 4)])

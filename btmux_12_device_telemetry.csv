@@ -1,0 +1,33 @@
+# BT-Mux Benchmark Telemetry Summary Export (SRS REQ-13)
+
+Session ID,SESS_12_DEV_1791813412
+Test Name,12-Device Viva Multiplexing Benchmark
+Time-Slice Window (T_slice ms),80
+Host Physical Cap (N_max),4
+Session Status,COMPLETED
+Created At,2026-10-12T13:56:53Z
+Started At,N/A
+Ended At,N/A
+
+=== Global Benchmark Metrics ===
+Metric,Value,Target Reference
+Total Packets Sent,24,N/A
+Total Packets Received,24,N/A
+Packet Delivery Ratio (PDR),100.00%,>= 95% at N=10 (SRS 5.1)
+Average Round-Trip Time (RTT ms),19.40 ms,N/A
+Average Handoff Overhead,24.20 ms,<= 300 ms (SRS 5.1)
+
+=== Per-Node Stream Metrics ===
+Node / Device ID,Priority Rank,Socket Status,Average RSSI (dBm),Average RTT (ms)
+PEER_NODE_00,0,COMPLETED,N/A,N/A
+PEER_NODE_01,0,COMPLETED,N/A,N/A
+PEER_NODE_02,0,COMPLETED,N/A,N/A
+PEER_NODE_03,0,COMPLETED,N/A,N/A
+PEER_NODE_04,0,COMPLETED,N/A,N/A
+PEER_NODE_05,0,COMPLETED,N/A,N/A
+PEER_NODE_06,0,COMPLETED,N/A,N/A
+PEER_NODE_07,0,COMPLETED,N/A,N/A
+PEER_NODE_08,0,COMPLETED,N/A,N/A
+PEER_NODE_09,0,COMPLETED,N/A,N/A
+PEER_NODE_10,0,COMPLETED,N/A,N/A
+PEER_NODE_11,0,COMPLETED,N/A,N/A

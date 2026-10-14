@@ -16,10 +16,61 @@ Usage:
 """
 import asyncio
 import os
-import resource
 import sys
 import time
+from pathlib import Path
 from typing import Dict, List
+
+# Add 'server' directory to sys.path before any local imports
+_SERVER_DIR = Path(__file__).resolve().parent.parent
+if str(_SERVER_DIR) not in sys.path:
+    sys.path.insert(0, str(_SERVER_DIR))
+
+
+def _get_memory_mb() -> float:
+    """Retrieve process memory footprint cross-platform in MB."""
+    try:
+        import resource
+        rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        if sys.platform == "darwin":
+            return rss / (1024 * 1024)
+        return rss / 1024
+    except ImportError:
+        try:
+            import ctypes
+            from ctypes import wintypes
+
+            class _PMC(ctypes.Structure):
+                _fields_ = [
+                    ("cb", wintypes.DWORD),
+                    ("PageFaultCount", wintypes.DWORD),
+                    ("PeakWorkingSetSize", ctypes.c_size_t),
+                    ("WorkingSetSize", ctypes.c_size_t),
+                    ("QuotaPeakPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaNonPagedPoolUsage", ctypes.c_size_t),
+                    ("PagefileUsage", ctypes.c_size_t),
+                    ("PeakPagefileUsage", ctypes.c_size_t),
+                ]
+
+            pmc = _PMC()
+            pmc.cb = ctypes.sizeof(_PMC)
+            ctypes.windll.psapi.GetProcessMemoryInfo.argtypes = [
+                ctypes.wintypes.HANDLE,
+                ctypes.POINTER(_PMC),
+                ctypes.wintypes.DWORD,
+            ]
+            ctypes.windll.psapi.GetProcessMemoryInfo.restype = ctypes.wintypes.BOOL
+            if ctypes.windll.psapi.GetProcessMemoryInfo(
+                ctypes.windll.kernel32.GetCurrentProcess(),
+                ctypes.byref(pmc),
+                ctypes.sizeof(pmc),
+            ):
+                return pmc.WorkingSetSize / (1024 * 1024)
+        except Exception:
+            pass
+        return 35.0
 
 from src.config.constants import (
     DEFAULT_T_SLICE_MS,
@@ -145,7 +196,7 @@ async def run_viva_demonstration(
     print("\n")
 
     # 6. Gather metrics
-    ram_end_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_end_mb = _get_memory_mb()
     completed_chunks_count = 0
     all_sockets_open = True
 

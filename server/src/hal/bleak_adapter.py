@@ -59,17 +59,49 @@ class BleakTransport(BLETransport):
                 self._clients.pop(device_id, None)
                 self._trigger_event("disconnected", device_id)
 
-            client = BleakClient(device_id, disconnected_callback=on_disconnect)
-            logger.info("Connecting BleakClient to '%s'...", device_id)
-            await client.connect()
+            # Connect with fallback across random and public address types (crucial for Android RPA)
+            client = None
+            last_err = None
+            for addr_type in ("random", "public"):
+                try:
+                    c = BleakClient(
+                        device_id,
+                        disconnected_callback=on_disconnect,
+                        winrt={"address_type": addr_type},
+                    )
+                    logger.info("Connecting BleakClient to '%s' (type=%s)...", device_id, addr_type)
+                    await c.connect()
+                    client = c
+                    break
+                except Exception as ex:
+                    last_err = ex
+
+            if not client or not client.is_connected:
+                raise ConnectionError(f"Failed to connect to BLE device '{device_id}': {last_err}")
+
             self._clients[device_id] = client
+
+            # Auto-detect writable characteristic if default NUS TX is not in GATT table
+            target_rx_uuid = self.rx_char_uuid
+            if client.services:
+                # Check for notify characteristic for RX ACKs
+                has_nus_rx = any(
+                    c.uuid.lower() == self.rx_char_uuid.lower()
+                    for s in client.services for c in s.characteristics
+                )
+                if not has_nus_rx:
+                    for s in client.services:
+                        for c in s.characteristics:
+                            if "notify" in c.properties:
+                                target_rx_uuid = c.uuid
+                                break
 
             # Optional: subscribe to RX notifications if characteristic is supported
             try:
                 def notification_handler(sender: Any, data: bytearray) -> None:
                     self._trigger_event("data", device_id, bytes(data))
 
-                await client.start_notify(self.rx_char_uuid, notification_handler)
+                await client.start_notify(target_rx_uuid, notification_handler)
             except Exception as e:
                 logger.debug("Characteristic notify subscription skipped on %s: %s", device_id, e)
 
@@ -92,9 +124,28 @@ class BleakTransport(BLETransport):
         if not client or not client.is_connected:
             raise ConnectionResetError(f"Bleak client '{device_id}' is not connected")
 
-        # Write data to GATT characteristic (with or without response)
-        await client.write_gatt_char(self.tx_char_uuid, data, response=False)
-        logger.debug("BleakTransport: Transmitted %d bytes to '%s'", len(data), device_id)
+        # Resolve target characteristic: look for NUS TX first, then fallback to any writable char
+        target_tx_uuid = self.tx_char_uuid
+        has_nus_tx = any(
+            c.uuid.lower() == self.tx_char_uuid.lower()
+            for s in client.services for c in s.characteristics
+        )
+        if not has_nus_tx:
+            # Look for user-level write-without-response characteristics (skip GAP/GATT system services)
+            for s in client.services:
+                s_uuid = s.uuid.lower()
+                if s_uuid.startswith("00001800") or s_uuid.startswith("00001801"):
+                    continue
+                for c in s.characteristics:
+                    if "write-without-response" in c.properties or "write" in c.properties:
+                        target_tx_uuid = c.uuid
+                        break
+                if target_tx_uuid != self.tx_char_uuid:
+                    break
+
+        # Write data to GATT characteristic
+        await client.write_gatt_char(target_tx_uuid, data, response=False)
+        logger.debug("BleakTransport: Transmitted %d bytes to '%s' (char=%s)", len(data), device_id, target_tx_uuid)
 
     def on(self, event: str, callback: Callable[..., Any]) -> None:
         """Register event listeners ('data', 'connected', 'disconnected')."""

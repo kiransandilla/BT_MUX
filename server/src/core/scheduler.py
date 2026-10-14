@@ -38,13 +38,14 @@ class TDMScheduler:
         session_manager: SessionManager,
         t_slice_ms: int = DEFAULT_T_SLICE_MS,
         degraded_timeout_ms: int = DEGRADED_TIMEOUT_MS,
+        n_max_override:int = None
     ) -> None:
         self.transport: BLETransport = transport
         self.session_manager: SessionManager = session_manager
 
         # Dynamic detection of physical connection cap N_max from HAL adapter (SRS REQ-1)
         # Avoids hardcoding 4 so platform ports (e.g. Raspberry Pi) adapt to reported chipset caps.
-        self.n_max: int = self.transport.get_max_connections()
+        self.n_max: int = min(self.transport.get_max_connections(), n_max_override) if n_max_override else self.transport.get_max_connections()
 
         # Duty-cycling time window duration (SRS REQ-2)
         self.t_slice_ms: int = min(max(t_slice_ms, T_SLICE_MIN_MS), T_SLICE_MAX_MS)

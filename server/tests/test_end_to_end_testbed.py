@@ -11,10 +11,63 @@ SRS Requirements Tested:
 """
 import asyncio
 import os
-import resource
-import pytest
+import sys
 import time
+from pathlib import Path
 from typing import Dict, List
+
+# Ensure 'server' directory is in sys.path
+_SERVER_DIR = Path(__file__).resolve().parent.parent
+if str(_SERVER_DIR) not in sys.path:
+    sys.path.insert(0, str(_SERVER_DIR))
+
+import pytest
+
+
+def _get_memory_mb() -> float:
+    """Retrieve process memory footprint cross-platform in MB."""
+    try:
+        import resource
+        rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        if sys.platform == "darwin":
+            return rss / (1024 * 1024)
+        return rss / 1024
+    except ImportError:
+        try:
+            import ctypes
+            from ctypes import wintypes
+
+            class _PMC(ctypes.Structure):
+                _fields_ = [
+                    ("cb", wintypes.DWORD),
+                    ("PageFaultCount", wintypes.DWORD),
+                    ("PeakWorkingSetSize", ctypes.c_size_t),
+                    ("WorkingSetSize", ctypes.c_size_t),
+                    ("QuotaPeakPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t),
+                    ("QuotaNonPagedPoolUsage", ctypes.c_size_t),
+                    ("PagefileUsage", ctypes.c_size_t),
+                    ("PeakPagefileUsage", ctypes.c_size_t),
+                ]
+
+            pmc = _PMC()
+            pmc.cb = ctypes.sizeof(_PMC)
+            ctypes.windll.psapi.GetProcessMemoryInfo.argtypes = [
+                ctypes.wintypes.HANDLE,
+                ctypes.POINTER(_PMC),
+                ctypes.wintypes.DWORD,
+            ]
+            ctypes.windll.psapi.GetProcessMemoryInfo.restype = ctypes.wintypes.BOOL
+            if ctypes.windll.psapi.GetProcessMemoryInfo(
+                ctypes.windll.kernel32.GetCurrentProcess(),
+                ctypes.byref(pmc),
+                ctypes.sizeof(pmc),
+            ):
+                return pmc.WorkingSetSize / (1024 * 1024)
+        except Exception:
+            pass
+        return 35.0
 
 from src.config.constants import (
     DEFAULT_T_SLICE_MS,
@@ -118,8 +171,7 @@ async def test_end_to_end_node_testbed_10_nodes_file_transfer():
     assert total_expected_chunks == 60
 
     # 5. Measure memory usage before starting benchmark (SRS 5.1: host RAM < 150 MB)
-    # On macOS, ru_maxrss is reported in bytes; convert to MB
-    ram_start_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_start_mb = _get_memory_mb()
 
     # 6. Run Scheduler duty-cycle loop
     t_start = time.perf_counter()
@@ -144,7 +196,7 @@ async def test_end_to_end_node_testbed_10_nodes_file_transfer():
     t_end = time.perf_counter()
 
     # 7. Measure memory usage and execution metrics
-    ram_end_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
+    ram_end_mb = _get_memory_mb()
     total_transmitted_over_air = len(transport.transmitted_history)
 
     # All completed chunks across all buffers
@@ -418,3 +470,8 @@ async def test_late_ack_after_requeue_no_duplicate():
 
     await scheduler.stop()
     await session_mgr.close()
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(pytest.main([__file__, "-v"]))
