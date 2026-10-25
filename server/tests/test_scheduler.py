@@ -129,3 +129,79 @@ async def test_scheduler_background_start_and_stop():
     await sched.stop()
     assert sched._running is False
     assert len(sched.active_slots) == 0
+
+
+@pytest.mark.asyncio
+async def test_scheduler_eviction_after_max_reconnect_retries():
+    """Verify peripheral is completely evicted from TDM loop after exceeding max reconnect retries."""
+    transport = MockTransport(max_connections=2)
+    transport.failing_devices.add("dead_node")
+    transport.connect_delays["healthy_node"] = 0.0
+
+    sm = SessionManager(session_id="s_evict")
+    max_retries = 3
+    sched = TDMScheduler(
+        transport=transport,
+        session_manager=sm,
+        t_slice_ms=20,
+        degraded_timeout_ms=200,
+        max_reconnect_retries=max_retries,
+    )
+
+    sched.register_node("dead_node")
+    sched.register_node("healthy_node")
+
+    # Cycle 1: attempt 1 (fails -> degraded, retained in queue)
+    await sched.step_rotation()
+    assert "dead_node" in sched.node_queue
+    assert "dead_node" not in sched.dropped_nodes
+    assert sched.retry_counts["dead_node"] == 1
+
+    # Cycle 2: attempt 2 (fails -> degraded, retained in queue)
+    await sched.step_rotation()
+    assert "dead_node" in sched.node_queue
+    assert sched.retry_counts["dead_node"] == 2
+
+    # Cycle 3: attempt 3 (fails -> reached max_retries=3 -> DROPPED and evicted from TDM loop)
+    await sched.step_rotation()
+    assert "dead_node" not in sched.node_queue
+    assert "dead_node" in sched.dropped_nodes
+    assert sm.get_socket("dead_node").physical_state == SocketState.DROPPED
+
+    # Cycle 4: only healthy_node remains in queue
+    await sched.step_rotation()
+    assert sched.node_queue == ["healthy_node"]
+    assert "dead_node" not in sched.node_queue
+
+
+@pytest.mark.asyncio
+async def test_scheduler_resets_retry_counter_on_successful_reconnect():
+    """Verify consecutive retry counter resets to 0 when a previously failing device reconnects."""
+    transport = MockTransport(max_connections=1)
+    transport.failing_devices.add("flaky_node")
+    transport.connect_delays["flaky_node"] = 0.0
+
+    sm = SessionManager(session_id="s_reset")
+    sched = TDMScheduler(
+        transport=transport,
+        session_manager=sm,
+        t_slice_ms=20,
+        degraded_timeout_ms=200,
+        max_reconnect_retries=5,
+    )
+
+    sched.register_node("flaky_node")
+
+    # Step 1: fails -> retry_count = 1
+    await sched.step_rotation()
+    assert sched.retry_counts["flaky_node"] == 1
+
+    # Fix the device link
+    transport.failing_devices.remove("flaky_node")
+
+    # Step 2: succeeds -> retry_count resets to 0
+    await sched.step_rotation()
+    assert sched.retry_counts["flaky_node"] == 0
+    assert "flaky_node" in sched.node_queue
+    assert "flaky_node" not in sched.dropped_nodes
+

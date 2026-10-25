@@ -163,6 +163,34 @@ class SessionManager:
                 device_id,
             )
 
+    async def on_physical_link_dropped(self, device_id: str) -> None:
+        """Handle peripheral exceeding max reconnection retries.
+        
+        Flags physical link as DROPPED, halts pump, and preserves RAM buffer without closing logical socket (REQ-5).
+        """
+        async with self._lock:
+            sock = self.sockets.get(device_id)
+            if sock:
+                sock.set_physical_state(SocketState.DROPPED)
+
+            task = self._flush_tasks.pop(device_id, None)
+            if task and not task.done():
+                task.cancel()
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
+
+            buf = self.buffers.get(device_id)
+            if buf:
+                await buf.requeue_all_in_flight()
+
+            logger.error(
+                "SessionManager[%s]: Device '%s' marked DROPPED (10x reconnection failure); evicted from TDM rotation",
+                self.session_id,
+                device_id,
+            )
+
     async def on_chunk_ack_received(self, device_id: str, chunk_id: str) -> bool:
         """Notify buffer of remote ACK confirmation for a dispatched chunk."""
         buf = self.buffers.get(device_id)

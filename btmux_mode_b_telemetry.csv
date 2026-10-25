@@ -1,0 +1,33 @@
+# BT-Mux Benchmark Telemetry Summary Export (SRS REQ-13)
+
+Session ID,SESS_MODE_B_1792853772
+Test Name,Mode B — Hybrid Multiplexing (Phone: 6E:B9:EF:52:BF:3A + 11 Virtual)
+Time-Slice Window (T_slice ms),350
+Host Physical Cap (N_max),4
+Session Status,COMPLETED
+Created At,2026-10-24T14:57:16Z
+Started At,N/A
+Ended At,N/A
+
+=== Global Benchmark Metrics ===
+Metric,Value,Target Reference
+Total Packets Sent,264,N/A
+Total Packets Received,264,N/A
+Packet Delivery Ratio (PDR),100.00%,>= 95% at N=10 (SRS 5.1)
+Average Round-Trip Time (RTT ms),28.00 ms,N/A
+Average Handoff Overhead,26.50 ms,<= 300 ms (SRS 5.1)
+
+=== Per-Node Stream Metrics ===
+Node / Device ID,Priority Rank,Socket Status,Average RSSI (dBm),Average RTT (ms)
+6E:B9:EF:52:BF:3A,0,COMPLETED,N/A,N/A
+PEER_NODE_01,0,COMPLETED,N/A,N/A
+PEER_NODE_02,0,COMPLETED,N/A,N/A
+PEER_NODE_03,0,COMPLETED,N/A,N/A
+PEER_NODE_04,0,COMPLETED,N/A,N/A
+PEER_NODE_05,0,COMPLETED,N/A,N/A
+PEER_NODE_06,0,COMPLETED,N/A,N/A
+PEER_NODE_07,0,COMPLETED,N/A,N/A
+PEER_NODE_08,0,COMPLETED,N/A,N/A
+PEER_NODE_09,0,COMPLETED,N/A,N/A
+PEER_NODE_10,0,COMPLETED,N/A,N/A
+PEER_NODE_11,0,COMPLETED,N/A,N/A

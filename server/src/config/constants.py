@@ -34,6 +34,9 @@ RECONNECT_LATENCY_MAX_MS: int = 300
 DEGRADED_TIMEOUT_MS: int = 1000
 """Degraded peripheral transition timeout before retry in milliseconds (SRS REQ-4)."""
 
+MAX_RECONNECT_RETRIES: int = 10
+"""Maximum consecutive reconnection attempts before evicting node from TDM loop."""
+
 # ==============================================================================
 # 3. Performance & Resource Targets (SRS 5.1)
 # ==============================================================================
@@ -63,12 +66,14 @@ class SocketState(str, Enum):
     UNINITIALIZED -> PAUSED_QUEUED -> CONNECTING -> ACTIVE_PHYSICAL_LINK
     -> PAUSED_QUEUED (on slice-timer expiry)
     -> DEGRADED_RETRY (on timeout/error)
+    -> DROPPED (on exceeding max reconnection attempts)
     """
     UNINITIALIZED = "UNINITIALIZED"
     PAUSED_QUEUED = "PAUSED_QUEUED"
     CONNECTING = "CONNECTING"
     ACTIVE_PHYSICAL_LINK = "ACTIVE_PHYSICAL_LINK"
     DEGRADED_RETRY = "DEGRADED_RETRY"
+    DROPPED = "DROPPED"
 
 
 # ==============================================================================

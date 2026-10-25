@@ -1,0 +1,263 @@
+nRF Connect, 2026-10-25
+DESKTOP-EP9QI4S (28:39:26:9D:19:5A)
+D	11:32:58.943	[Broadcast] Action received: android.bluetooth.device.action.ACL_CONNECTED
+I	11:32:58.943	[Server] Server started
+V	11:32:58.956	Heart Rate (0x180D)
+- Heart Rate Measurement [N] (0x2A37)
+   Client Characteristic Configuration (0x2902)
+- Body Sensor Location [R] (0x2A38)
+- Heart Rate Control Point [W] (0x2A39)
+Unknown Service (0000aaa0-0000-1000-8000-aabbccddeeff)
+- Unknown Characteristic [N R] (0000aaa1-0000-1000-8000-aabbccddeeff)
+   Client Characteristic Configuration (0x2902)
+   Unknown Descriptor (0000aab0-0000-1000-8000-aabbccddeeff)
+   Characteristic User Description (0x2901)
+   Characteristic Presentation Format (0x2904)
+- Unknown Characteristic [I W WNR] (0000aaa2-0000-1000-8000-aabbccddeeff)
+   Client Characteristic Configuration (0x2902)
+User Data (0x181C)
+- First Name [R W] (0x2A8A)
+- Last Name [R W] (0x2A90)
+- Gender [R W] (0x2A8C)
+D	11:32:58.963	[Server callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:32:58.963	[Server] Device with address 28:39:26:9D:19:5A connected
+I	11:32:59.053	[Server] MTU changed to 517
+V	11:32:59.068	Connecting to 28:39:26:9D:19:5A...
+D	11:32:59.068	gatt = device.connectGatt(autoConnect = false, TRANSPORT_LE, preferred PHY = LE 1M)
+D	11:32:59.086	[Callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:32:59.086	Connected to 28:39:26:9D:19:5A
+D	11:32:59.086	wait(1600ms)
+V	11:33:00.688	Discovering services...
+D	11:33:00.689	gatt.discoverServices()
+D	11:33:00.701	[Callback] Services discovered with status: 0
+I	11:33:00.702	Services discovered
+V	11:33:00.713	Generic Access (0x1800)
+- Device Name [R] (0x2A00)
+- Appearance [R] (0x2A01)
+- Peripheral Preferred Connection Parameters [R] (0x2A04)
+- Central Address Resolution [R] (0x2AA6)
+Generic Attribute (0x1801)
+- Service Changed [I] (0x2A05)
+   Client Characteristic Configuration (0x2902)
+- Client Supported Features [R W] (0x2B29)
+- Database Hash [R] (0x2B2A)
+Device Information (0x180A)
+- PnP ID [R] (0x2A50)
+D	11:33:00.713	gatt.setCharacteristicNotification(00002a05-0000-1000-8000-00805f9b34fb, true)
+D	11:33:01.928	[Server callback] Read request for descriptor 00002901-0000-1000-8000-00805f9b34fb (requestId=6, offset=0)
+I	11:33:01.928	[Server] READ request for descriptor 00002901-0000-1000-8000-00805f9b34fb received
+D	11:33:01.928	server.sendResponse(GATT_SUCCESS, value=0x496D706F7274616E742076616C7565)
+V	11:33:01.930	[Server] Response sent
+A	11:33:01.931	[Server] "Important value" sent
+D	11:33:02.047	[Server callback] Read request for descriptor 00002904-0000-1000-8000-00805f9b34fb (requestId=7, offset=0)
+I	11:33:02.047	[Server] READ request for descriptor 00002904-0000-1000-8000-00805f9b34fb received
+D	11:33:02.047	server.sendResponse(GATT_SUCCESS, value=0x06000127010001)
+V	11:33:02.049	[Server] Response sent
+A	11:33:02.049	[Server] "Format: unsigned 16-bit integer
+Exponent: 0
+Unit: length (metre)
+Namespace: Bluetooth SIG Assigned Numbers
+Description: front" sent
+D	11:33:02.646	[Server callback] Write request to descriptor 00002902-0000-1000-8000-00805f9b34fb (requestId=8, prepareWrite=false, responseNeeded=true, offset=0, value=0x0100)
+I	11:33:02.648	[Server] WRITE REQUEST request for descriptor 00002902-0000-1000-8000-00805f9b34fb received, value: (0x) 01-00
+A	11:33:02.648	[Server] "Notifications enabled" received
+D	11:33:02.648	server.sendResponse(GATT_SUCCESS, offset=0, value=null)
+V	11:33:02.649	[Server] Response sent
+V	11:33:03.648	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:03.648	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x0E5A0000, confirm= false)
+I	11:33:03.653	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 0E-5A-00-00
+A	11:33:03.654	[Server] "Heart Rate Measurement: 90 bpm,
+Contact is Detected,
+Energy Expended: 0 kJ" sent
+V	11:33:04.655	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:04.655	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065A, confirm= false)
+I	11:33:04.659	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5A
+A	11:33:04.659	[Server] "Heart Rate Measurement: 90 bpm,
+Contact is Detected" sent
+V	11:33:05.660	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:05.660	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065A, confirm= false)
+I	11:33:05.664	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5A
+A	11:33:05.664	[Server] "Heart Rate Measurement: 90 bpm,
+Contact is Detected" sent
+V	11:33:06.666	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:06.667	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x045B, confirm= false)
+I	11:33:06.671	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-5B
+A	11:33:06.671	[Server] "Heart Rate Measurement: 91 bpm,
+Contact is NOT Detected" sent
+V	11:33:07.674	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:07.674	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x045B, confirm= false)
+I	11:33:07.681	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-5B
+A	11:33:07.682	[Server] "Heart Rate Measurement: 91 bpm,
+Contact is NOT Detected" sent
+V	11:33:08.684	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:08.684	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065C, confirm= false)
+I	11:33:08.690	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5C
+A	11:33:08.690	[Server] "Heart Rate Measurement: 92 bpm,
+Contact is Detected" sent
+V	11:33:09.693	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:09.693	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065C, confirm= false)
+I	11:33:09.699	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5C
+A	11:33:09.700	[Server] "Heart Rate Measurement: 92 bpm,
+Contact is Detected" sent
+V	11:33:10.708	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:10.708	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065D, confirm= false)
+I	11:33:10.712	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5D
+A	11:33:10.712	[Server] "Heart Rate Measurement: 93 bpm,
+Contact is Detected" sent
+D	11:33:11.407	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=9, prepareWrite=false, responseNeeded=false, offset=0, value=0x42542D4D7578204D6F6465204420E28094204479)
+I	11:33:11.407	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 42-54-2D-4D-75-78-20-4D-6F-64-65-20-44-20-E2-80-94-20-44-79
+A	11:33:11.407	[Server] "(0x) 42-54-2D-4D-75-78-20-4D-6F-64-65-20-44-20-E2-80-94-20-44-79" received
+D	11:33:11.526	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=10, prepareWrite=false, responseNeeded=false, offset=0, value=0x6E616D6963205265616C205472616E7366657220)
+I	11:33:11.526	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 6E-61-6D-69-63-20-52-65-61-6C-20-54-72-61-6E-73-66-65-72-20, "namic Real Transfer "
+A	11:33:11.526	[Server] "(0x) 6E-61-6D-69-63-20-52-65-61-6C-20-54-72-61-6E-73-66-65-72-20, "namic Real Transfer "" received
+D	11:33:11.647	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=11, prepareWrite=false, responseNeeded=false, offset=0, value=0x284E3D322C204E5F6D61783D32290A416C6C2073)
+I	11:33:11.647	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 28-4E-3D-32-2C-20-4E-5F-6D-61-78-3D-32-29-0A-41-6C-6C-20-73
+A	11:33:11.647	[Server] "(0x) 28-4E-3D-32-2C-20-4E-5F-6D-61-78-3D-32-29-0A-41-6C-6C-20-73" received
+V	11:33:11.719	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:11.719	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x045D, confirm= false)
+I	11:33:11.722	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-5D
+A	11:33:11.722	[Server] "Heart Rate Measurement: 93 bpm,
+Contact is NOT Detected" sent
+D	11:33:11.767	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=12, prepareWrite=false, responseNeeded=false, offset=0, value=0x747265616D7320617265207265616C2070687973)
+I	11:33:11.767	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 74-72-65-61-6D-73-20-61-72-65-20-72-65-61-6C-20-70-68-79-73, "treams are real phys"
+A	11:33:11.767	[Server] "(0x) 74-72-65-61-6D-73-20-61-72-65-20-72-65-61-6C-20-70-68-79-73, "treams are real phys"" received
+D	11:33:12.547	[Server callback] Write request to descriptor 00002902-0000-1000-8000-00805f9b34fb (requestId=13, prepareWrite=false, responseNeeded=true, offset=0, value=0x0100)
+I	11:33:12.547	[Server] WRITE REQUEST request for descriptor 00002902-0000-1000-8000-00805f9b34fb received, value: (0x) 01-00
+A	11:33:12.547	[Server] "Notifications enabled" received
+D	11:33:12.547	server.sendResponse(GATT_SUCCESS, offset=0, value=null)
+V	11:33:12.551	[Server] Response sent
+V	11:33:12.722	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:12.722	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x045E, confirm= false)
+I	11:33:12.726	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-5E
+A	11:33:12.726	[Server] "Heart Rate Measurement: 94 bpm,
+Contact is NOT Detected" sent
+D	11:33:13.328	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=14, prepareWrite=false, responseNeeded=false, offset=0, value=0x6963616C204741545420636F6E6E656374696F6E)
+I	11:33:13.328	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 69-63-61-6C-20-47-41-54-54-20-63-6F-6E-6E-65-63-74-69-6F-6E, "ical GATT connection"
+A	11:33:13.329	[Server] "(0x) 69-63-61-6C-20-47-41-54-54-20-63-6F-6E-6E-65-63-74-69-6F-6E, "ical GATT connection"" received
+D	11:33:13.388	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=15, prepareWrite=false, responseNeeded=false, offset=0, value=0x732E0A54444D207363686564756C657220726F74)
+I	11:33:13.388	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 73-2E-0A-54-44-4D-20-73-63-68-65-64-75-6C-65-72-20-72-6F-74
+A	11:33:13.388	[Server] "(0x) 73-2E-0A-54-44-4D-20-73-63-68-65-64-75-6C-65-72-20-72-6F-74" received
+D	11:33:13.508	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=16, prepareWrite=false, responseNeeded=false, offset=0, value=0x617465732074686520726164696F206163726F73)
+I	11:33:13.509	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 61-74-65-73-20-74-68-65-20-72-61-64-69-6F-20-61-63-72-6F-73, "ates the radio acros"
+A	11:33:13.509	[Server] "(0x) 61-74-65-73-20-74-68-65-20-72-61-64-69-6F-20-61-63-72-6F-73, "ates the radio acros"" received
+D	11:33:13.629	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=17, prepareWrite=false, responseNeeded=false, offset=0, value=0x73204E5F6D617820736C6F747320756E74696C20)
+I	11:33:13.629	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 73-20-4E-5F-6D-61-78-20-73-6C-6F-74-73-20-75-6E-74-69-6C-20, "s N_max slots until "
+A	11:33:13.630	[Server] "(0x) 73-20-4E-5F-6D-61-78-20-73-6C-6F-74-73-20-75-6E-74-69-6C-20, "s N_max slots until "" received
+D	11:33:13.689	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=18, prepareWrite=false, responseNeeded=false, offset=0, value=0x616C6C204E206465766963657320617265207365)
+I	11:33:13.689	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 61-6C-6C-20-4E-20-64-65-76-69-63-65-73-20-61-72-65-20-73-65, "all N devices are se"
+A	11:33:13.689	[Server] "(0x) 61-6C-6C-20-4E-20-64-65-76-69-63-65-73-20-61-72-65-20-73-65, "all N devices are se"" received
+V	11:33:13.729	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:13.729	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x0E5E0100, confirm= false)
+I	11:33:13.736	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 0E-5E-01-00
+A	11:33:13.736	[Server] "Heart Rate Measurement: 94 bpm,
+Contact is Detected,
+Energy Expended: 1 kJ" sent
+D	11:33:13.869	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=19, prepareWrite=false, responseNeeded=false, offset=0, value=0x727665642E0A42542D4D7578204D6F6465204420)
+I	11:33:13.869	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 72-76-65-64-2E-0A-42-54-2D-4D-75-78-20-4D-6F-64-65-20-44-20
+A	11:33:13.869	[Server] "(0x) 72-76-65-64-2E-0A-42-54-2D-4D-75-78-20-4D-6F-64-65-20-44-20" received
+D	11:33:13.929	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=20, prepareWrite=false, responseNeeded=false, offset=0, value=0xE280942044796E616D6963205265616C20547261)
+I	11:33:13.929	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) E2-80-94-20-44-79-6E-61-6D-69-63-20-52-65-61-6C-20-54-72-61
+A	11:33:13.930	[Server] "(0x) E2-80-94-20-44-79-6E-61-6D-69-63-20-52-65-61-6C-20-54-72-61" received
+D	11:33:14.168	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=21, prepareWrite=false, responseNeeded=false, offset=0, value=0x6E7366657220284E3D322C204E5F6D61783D3229)
+I	11:33:14.168	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 6E-73-66-65-72-20-28-4E-3D-32-2C-20-4E-5F-6D-61-78-3D-32-29, "nsfer (N=2, N_max=2)"
+A	11:33:14.168	[Server] "(0x) 6E-73-66-65-72-20-28-4E-3D-32-2C-20-4E-5F-6D-61-78-3D-32-29, "nsfer (N=2, N_max=2)"" received
+D	11:33:14.349	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=22, prepareWrite=false, responseNeeded=false, offset=0, value=0x0A416C6C2073747265616D732061726520726561)
+I	11:33:14.349	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 0A-41-6C-6C-20-73-74-72-65-61-6D-73-20-61-72-65-20-72-65-61
+A	11:33:14.350	[Server] "(0x) 0A-41-6C-6C-20-73-74-72-65-61-6D-73-20-61-72-65-20-72-65-61" received
+D	11:33:14.409	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=23, prepareWrite=false, responseNeeded=false, offset=0, value=0x6C20706879736963616C204741545420636F6E6E)
+I	11:33:14.409	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 6C-20-70-68-79-73-69-63-61-6C-20-47-41-54-54-20-63-6F-6E-6E, "l physical GATT conn"
+A	11:33:14.409	[Server] "(0x) 6C-20-70-68-79-73-69-63-61-6C-20-47-41-54-54-20-63-6F-6E-6E, "l physical GATT conn"" received
+D	11:33:14.588	[Server callback] Write request to characteristic 00002a39-0000-1000-8000-00805f9b34fb (requestId=24, prepareWrite=false, responseNeeded=false, offset=0, value=0x656374696F6E732E0A54444D207363686564756C)
+I	11:33:14.588	[Server] WRITE COMMAND request for characteristic 00002a39-0000-1000-8000-00805f9b34fb received, value: (0x) 65-63-74-69-6F-6E-73-2E-0A-54-44-4D-20-73-63-68-65-64-75-6C
+A	11:33:14.588	[Server] "(0x) 65-63-74-69-6F-6E-73-2E-0A-54-44-4D-20-73-63-68-65-64-75-6C" received
+V	11:33:14.739	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:14.739	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065F, confirm= false)
+I	11:33:14.745	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5F
+A	11:33:14.745	[Server] "Heart Rate Measurement: 95 bpm,
+Contact is Detected" sent
+V	11:33:15.747	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:15.748	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x065F, confirm= false)
+I	11:33:15.753	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 06-5F
+A	11:33:15.753	[Server] "Heart Rate Measurement: 95 bpm,
+Contact is Detected" sent
+V	11:33:16.756	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:16.756	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x0460, confirm= false)
+I	11:33:16.761	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-60
+A	11:33:16.762	[Server] "Heart Rate Measurement: 96 bpm,
+Contact is NOT Detected" sent
+V	11:33:17.764	[Server] Sending notification from 00002a37-0000-1000-8000-00805f9b34fb
+D	11:33:17.765	server.notifyCharacteristicChanged(00002a37-0000-1000-8000-00805f9b34fb, value=0x0460, confirm= false)
+I	11:33:17.770	[Server] Notification sent to 00002a37-0000-1000-8000-00805f9b34fb, value: (0x) 04-60
+A	11:33:17.770	[Server] "Heart Rate Measurement: 96 bpm,
+Contact is NOT Detected" sent
+D	11:33:17.845	[Server callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:17.845	[Server] Device disconnected
+D	11:33:17.856	[Callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:17.856	Disconnected
+D	11:33:17.903	[Broadcast] Action received: android.bluetooth.device.action.ACL_DISCONNECTED
+D	11:33:18.342	[Server callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:33:18.342	[Server] Device with address 28:39:26:9D:19:5A connected
+D	11:33:18.342	gatt.close()
+D	11:33:18.345	wait(200)
+D	11:33:18.350	[Broadcast] Action received: android.bluetooth.device.action.ACL_CONNECTED
+V	11:33:18.546	Connecting to 28:39:26:9D:19:5A...
+D	11:33:18.548	gatt = device.connectGatt(autoConnect = false, TRANSPORT_LE, preferred PHY = LE 1M)
+I	11:33:18.556	[Server] MTU changed to 517
+D	11:33:18.574	[Callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:33:18.575	Connected to 28:39:26:9D:19:5A
+D	11:33:18.575	wait(1600ms)
+V	11:33:20.178	Discovering services...
+D	11:33:20.178	gatt.discoverServices()
+D	11:33:20.185	[Callback] Services discovered with status: 0
+I	11:33:20.185	Services discovered
+V	11:33:20.196	Generic Access (0x1800)
+- Device Name [R] (0x2A00)
+- Appearance [R] (0x2A01)
+- Peripheral Preferred Connection Parameters [R] (0x2A04)
+- Central Address Resolution [R] (0x2AA6)
+Generic Attribute (0x1801)
+- Service Changed [I] (0x2A05)
+   Client Characteristic Configuration (0x2902)
+- Client Supported Features [R W] (0x2B29)
+- Database Hash [R] (0x2B2A)
+Device Information (0x180A)
+- PnP ID [R] (0x2A50)
+D	11:33:20.197	gatt.setCharacteristicNotification(00002a05-0000-1000-8000-00805f9b34fb, true)
+D	11:33:23.183	[Server callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:23.183	[Server] Device disconnected
+D	11:33:23.194	[Callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:23.194	Disconnected
+D	11:33:23.238	[Broadcast] Action received: android.bluetooth.device.action.ACL_DISCONNECTED
+D	11:33:27.589	[Server callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:33:27.589	[Server] Device with address 28:39:26:9D:19:5A connected
+D	11:33:27.589	gatt.close()
+D	11:33:27.592	wait(200)
+D	11:33:27.596	[Broadcast] Action received: android.bluetooth.device.action.ACL_CONNECTED
+V	11:33:27.792	Connecting to 28:39:26:9D:19:5A...
+D	11:33:27.795	gatt = device.connectGatt(autoConnect = false, TRANSPORT_LE, preferred PHY = LE 1M)
+I	11:33:27.799	[Server] MTU changed to 517
+D	11:33:27.815	[Callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:33:27.815	Connected to 28:39:26:9D:19:5A
+D	11:33:27.815	wait(1600ms)
+V	11:33:29.417	Discovering services...
+D	11:33:29.417	gatt.discoverServices()
+D	11:33:29.425	[Callback] Services discovered with status: 0
+I	11:33:29.425	Services discovered
+V	11:33:29.440	Generic Access (0x1800)
+- Device Name [R] (0x2A00)
+- Appearance [R] (0x2A01)
+- Peripheral Preferred Connection Parameters [R] (0x2A04)
+- Central Address Resolution [R] (0x2AA6)
+Generic Attribute (0x1801)
+- Service Changed [I] (0x2A05)
+   Client Characteristic Configuration (0x2902)
+- Client Supported Features [R W] (0x2B29)
+- Database Hash [R] (0x2B2A)
+Device Information (0x180A)
+- PnP ID [R] (0x2A50)
+D	11:33:29.440	gatt.setCharacteristicNotification(00002a05-0000-1000-8000-00805f9b34fb, true)
+D	11:33:33.623	[Server callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:33.624	[Server] Device disconnected
+D	11:33:33.635	[Callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:33:33.635	Disconnected
+D	11:33:33.674	[Broadcast] Action received: android.bluetooth.device.action.ACL_DISCONNECTED

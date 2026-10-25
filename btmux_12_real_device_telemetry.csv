@@ -1,0 +1,33 @@
+# BT-Mux Benchmark Telemetry Summary Export (SRS REQ-13)
+
+Session ID,SESS_12_REAL_1792046966
+Test Name,12-Real-Device Simultaneous BLE Transfer
+Time-Slice Window (T_slice ms),750
+Host Physical Cap (N_max),4
+Session Status,COMPLETED
+Created At,2026-10-15T06:55:06Z
+Started At,N/A
+Ended At,N/A
+
+=== Global Benchmark Metrics ===
+Metric,Value,Target Reference
+Total Packets Sent,33324,N/A
+Total Packets Received,2181,N/A
+Packet Delivery Ratio (PDR),6.54%,>= 95% at N=10 (SRS 5.1)
+Average Round-Trip Time (RTT ms),35.00 ms,N/A
+Average Handoff Overhead,28.00 ms,<= 300 ms (SRS 5.1)
+
+=== Per-Node Stream Metrics ===
+Node / Device ID,Priority Rank,Socket Status,Average RSSI (dBm),Average RTT (ms)
+74:22:CA:13:62:22,0,COMPLETED,N/A,N/A
+CA:E5:25:EC:B1:87,0,COMPLETED,N/A,N/A
+71:49:F2:DE:AF:36,0,COMPLETED,N/A,N/A
+7A:EB:10:64:80:BD,0,COMPLETED,N/A,N/A
+54:22:18:A4:A6:FF,0,COMPLETED,N/A,N/A
+62:9F:00:C1:94:72,0,COMPLETED,N/A,N/A
+5C:1C:8D:0A:D1:77,0,COMPLETED,N/A,N/A
+98:47:44:D2:42:3C,0,COMPLETED,N/A,N/A
+84:9D:4B:06:11:8E,0,COMPLETED,N/A,N/A
+7E:27:07:68:AC:3B,0,COMPLETED,N/A,N/A
+45:C3:77:78:A8:FD,0,COMPLETED,N/A,N/A
+79:C2:47:D9:C2:9A,0,COMPLETED,N/A,N/A

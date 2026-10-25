@@ -11,6 +11,7 @@ from typing import Dict, List, Optional, Set
 from ..config.constants import (
     DEGRADED_TIMEOUT_MS,
     DEFAULT_T_SLICE_MS,
+    MAX_RECONNECT_RETRIES,
     T_SLICE_MAX_MS,
     T_SLICE_MIN_MS,
     SocketState,
@@ -29,6 +30,7 @@ class TDMScheduler:
     - Rotates peripheral batches in configurable T_slice windows (REQ-2).
     - Gracefully disconnects physical GATT slots prior to connecting the next batch (REQ-3).
     - Flags peripherals exceeding 1000ms connect timeout as DEGRADED_RETRY and bypasses slot (REQ-4).
+    - Evicts peripherals after 10 consecutive connection failures out of the TDM loop.
     - Supports dynamic adjustment of T_slice during active sessions (REQ-11).
     """
 
@@ -38,7 +40,8 @@ class TDMScheduler:
         session_manager: SessionManager,
         t_slice_ms: int = DEFAULT_T_SLICE_MS,
         degraded_timeout_ms: int = DEGRADED_TIMEOUT_MS,
-        n_max_override:int = None
+        n_max_override: int = None,
+        max_reconnect_retries: int = MAX_RECONNECT_RETRIES,
     ) -> None:
         self.transport: BLETransport = transport
         self.session_manager: SessionManager = session_manager
@@ -50,6 +53,7 @@ class TDMScheduler:
         # Duty-cycling time window duration (SRS REQ-2)
         self.t_slice_ms: int = min(max(t_slice_ms, T_SLICE_MIN_MS), T_SLICE_MAX_MS)
         self.degraded_timeout_ms: int = degraded_timeout_ms
+        self.max_reconnect_retries: int = max_reconnect_retries
 
         # Round-robin queue of device IDs
         self.node_queue: List[str] = []
@@ -59,6 +63,10 @@ class TDMScheduler:
 
         # Nodes flagged as degraded due to connection timeout or link failure (REQ-4)
         self.degraded_nodes: Set[str] = set()
+
+        # Consecutive reconnection failure tracking and dropped nodes set
+        self.retry_counts: Dict[str, int] = {}
+        self.dropped_nodes: Set[str] = set()
 
         # Node status callbacks for UI / Telemetry updates
         self._status_callbacks: List[callable] = []
@@ -76,6 +84,8 @@ class TDMScheduler:
         if device_id not in self.node_queue:
             self.node_queue.append(device_id)
             self.session_manager.get_or_create_socket(device_id)
+            self.retry_counts[device_id] = 0
+            self.dropped_nodes.discard(device_id)
             logger.info("TDMScheduler: Registered node '%s' (total_nodes=%d)", device_id, len(self.node_queue))
 
     def unregister_node(self, device_id: str) -> None:
@@ -84,6 +94,8 @@ class TDMScheduler:
             self.node_queue.remove(device_id)
         self.active_slots.discard(device_id)
         self.degraded_nodes.discard(device_id)
+        self.retry_counts.pop(device_id, None)
+        self.dropped_nodes.discard(device_id)
 
     def set_t_slice_ms(self, duration_ms: int) -> None:
         """Dynamically update T_slice duration during active test run (SRS REQ-11)."""
@@ -161,11 +173,12 @@ class TDMScheduler:
         if connected_nodes:
             await asyncio.gather(*(self._disconnect_node_graceful(dev_id) for dev_id in connected_nodes))
 
-        # 4. Advance round-robin queue: rotate evaluated batch to the back
-        self.node_queue = self.node_queue[batch_size:] + current_batch
+        # 4. Advance round-robin queue: rotate evaluated batch to the back, filtering out dropped nodes
+        surviving_batch = [nid for nid in current_batch if nid not in self.dropped_nodes]
+        self.node_queue = [nid for nid in self.node_queue[batch_size:] if nid not in self.dropped_nodes] + surviving_batch
 
     async def _connect_node_with_timeout(self, device_id: str) -> bool:
-        """Connect to peripheral with strict DEGRADED timeout (SRS REQ-4)."""
+        """Connect to peripheral with strict DEGRADED timeout (SRS REQ-4) and max retry eviction."""
         sock = self.session_manager.get_or_create_socket(device_id)
         sock.set_physical_state(SocketState.CONNECTING)
 
@@ -173,20 +186,37 @@ class TDMScheduler:
         try:
             # Enforce 1000ms timeout threshold per SRS REQ-4
             await asyncio.wait_for(self.transport.connect(device_id), timeout=timeout_sec)
+            self.retry_counts[device_id] = 0
             self.degraded_nodes.discard(device_id)
             # Notify session manager to launch automated flushing pump (REQ-8)
             await self.session_manager.on_physical_link_connected(device_id)
             return True
         except (asyncio.TimeoutError, Exception) as exc:
-            # Node failed to connect within 1000ms: flag as DEGRADED and bypass slot (REQ-4)
-            logger.warning(
-                "TDMScheduler: Node '%s' failed link establishment within %d ms -> DEGRADED (bypass slot): %s",
-                device_id,
-                self.degraded_timeout_ms,
-                exc,
-            )
-            self.degraded_nodes.add(device_id)
-            await self.session_manager.on_physical_link_degraded(device_id)
+            self.retry_counts[device_id] = self.retry_counts.get(device_id, 0) + 1
+            retries_so_far = self.retry_counts[device_id]
+
+            if retries_so_far >= self.max_reconnect_retries:
+                logger.error(
+                    "TDMScheduler: Node '%s' failed to reconnect after %d consecutive attempts -> DROPPED (evicting from TDM loop): %s",
+                    device_id,
+                    retries_so_far,
+                    exc,
+                )
+                self.degraded_nodes.discard(device_id)
+                self.dropped_nodes.add(device_id)
+                await self.session_manager.on_physical_link_dropped(device_id)
+            else:
+                # Node failed to connect within 1000ms: flag as DEGRADED and bypass slot (REQ-4)
+                logger.warning(
+                    "TDMScheduler: Node '%s' failed link establishment within %d ms (attempt %d/%d) -> DEGRADED (bypass slot): %s",
+                    device_id,
+                    self.degraded_timeout_ms,
+                    retries_so_far,
+                    self.max_reconnect_retries,
+                    exc,
+                )
+                self.degraded_nodes.add(device_id)
+                await self.session_manager.on_physical_link_degraded(device_id)
             return False
 
     async def _disconnect_node_graceful(self, device_id: str) -> None:

@@ -178,7 +178,7 @@ async def run_real_transfer(
         print(f"Total Bytes Transmitted:     {bytes_sent} bytes")
         print(f"Total Chunks Transmitted:    {total_chunks}")
         print(f"Total Elapsed Time:          {elapsed:.2f} seconds")
-        print(f"Effective Throughput:        {(bytes_sent / 1024) / elapsed:.2f} KB/s")
+        print(f"Effective Throughput:        {(bytes_sent / 1024) / elapsed:.4f} KB/s")
         print("=" * 72)
         return True
 

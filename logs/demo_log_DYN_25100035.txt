@@ -1,0 +1,78 @@
+======================================================================================
+      BT-MUX — MODE D: DYNAMIC REAL DEVICES (INTERACTIVE N & N_max)
+      Select any number of real BLE devices + your own N_max ceiling
+======================================================================================
+[*] Scanning for nearby BLE peripherals (6s, active mode)...
+
+[+] Discovered 17 BLE device(s):
+  [ 1] 73:01:15:3C:48:7E  17296174                 -56 dBm  [NUS/BT-Mux]
+  [ 2] 5D:1B:44:86:94:A6  Akshad                   -68 dBm  [NUS/BT-Mux]
+  [ 3] CA:E5:25:EC:B1:87  Noise Airwave Max XR     -32 dBm  
+  [ 4] 41:BD:95:8F:85:3D  AKSHAD                   -66 dBm  
+  [ 5] 6E:1C:A5:AD:25:21  MADAN                    -78 dBm  
+  [ 6] 54:E1:A5:F1:6A:E4  [Unnamed]                -66 dBm  
+  [ 7] 22:17:94:B1:D6:CB  [Unnamed]                -68 dBm  
+  [ 8] 12:F5:87:A7:40:98  [Unnamed]                -72 dBm  
+  [ 9] 26:7F:0B:E0:FD:49  [Unnamed]                -72 dBm  
+  [10] 7D:A6:1A:8A:5E:31  [Unnamed]                -72 dBm  
+  [11] 3F:FD:86:A3:2E:3C  [Unnamed]                -72 dBm  
+  [12] 11:9D:29:61:80:22  [Unnamed]                -76 dBm  
+  [13] 3D:F3:33:F4:34:54  [Unnamed]                -78 dBm  
+  [14] 3F:3E:A9:2B:5E:7F  [Unnamed]                -78 dBm  
+  [15] 26:D3:4E:DF:28:92  [Unnamed]                -78 dBm  
+  [16] 04:43:2C:5B:12:82  [Unnamed]                -82 dBm  
+  [17] 31:2A:6D:8A:16:F5  [Unnamed]                -86 dBm  
+
+Select up to 99 device numbers (comma-separated), or press Enter to use top 99:
+  > 
+[+] Confirmed 2 real device(s) for simultaneous transfer:
+    73:01:15:3C:48:7E  (17296174)
+    5D:1B:44:86:94:A6  (Akshad)
+
+Proceed? [Y/n]: 
+  Physical BLE controllers have a hardware connection ceiling (N_max).
+  BT-Mux multiplexes ALL 2 logical streams over N_max physical slots.
+  A smaller N_max (e.g. 2) proves stronger multiplexing; larger (e.g. 2) runs all-at-once.
+
+  Enter N_max (physical GATT slots, 1 – 2) [default 4]:   [>] N_max set to 2 — BT-Mux will rotate 2 streams over 2 slot(s).
+
+[>] Session configuration:
+    Real Devices (N)  : 2
+    Physical Slots    : N_max = 2
+    Multiplexing Ratio: 1.0x  (all slots occupied simultaneously)
+    T_slice           : 350 ms
+
+[*] Payload: test_img.jpeg (55535 bytes)
+[*] 2777 chunks × 2 devices = 5554 total transmissions.
+--------------------------------------------------------------------------------------
+[*] Pre-connecting to 2 real BLE device(s)...
+Traceback (most recent call last):
+  File "C:\Program Files\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "E:\College materials\Sem5\BTP\server\src\demo_12_devices.py", line 642, in run_dynamic_real_devices_demo
+    await real_transport.connect(mac)
+  File "E:\College materials\Sem5\BTP\server\src\hal\bleak_adapter.py", line 73, in connect
+    await c.connect()
+  File "C:\Users\Lenovo\AppData\Roaming\Python\Python312\site-packages\bleak\__init__.py", line 660, in connect
+    await self._backend.connect(self._pair_before_connect, **kwargs)
+  File "C:\Users\Lenovo\AppData\Roaming\Python\Python312\site-packages\bleak\backends\winrt\client.py", line 220, in connect
+    device = await BleakScanner.find_device_by_address(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Roaming\Python\Python312\site-packages\bleak\__init__.py", line 354, in find_device_by_address
+    return await cls.find_device_by_filter(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Roaming\Python\Python312\site-packages\bleak\__init__.py", line 413, in find_device_by_filter
+    async for bd, ad in scanner.advertisement_data():
+  File "C:\Users\Lenovo\AppData\Roaming\Python\Python312\site-packages\bleak\__init__.py", line 212, in advertisement_data
+    yield await devices.get()
+object address  : 00000188056DC2E0
+object refcount : 3
+object type     : 00007FF9970AE950
+object type name: KeyboardInterrupt
+object repr     : KeyboardInterrupt()
+lost sys.stderr
+^C

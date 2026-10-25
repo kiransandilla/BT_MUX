@@ -1,0 +1,44 @@
+======================================================================================
+      BT-MUX — MODE D: DYNAMIC REAL DEVICES (INTERACTIVE N & N_max)
+      Select any number of real BLE devices + your own N_max ceiling
+======================================================================================
+[*] Scanning for nearby BLE peripherals (6s, active mode)...
+
+[+] Discovered 13 BLE device(s):
+  [ 1] 5D:1B:44:86:94:A6  Akshad                   -56 dBm  [NUS/BT-Mux]
+  [ 2] CA:E5:25:EC:B1:87  Noise Airwave Max XR     -30 dBm  
+  [ 3] 6E:1C:A5:AD:25:21  MADAN                    -74 dBm  
+  [ 4] 41:BD:95:8F:85:3D  AKSHAD                   -78 dBm  
+  [ 5] 54:E1:A5:F1:6A:E4  [Unnamed]                -56 dBm  
+  [ 6] 22:17:94:B1:D6:CB  [Unnamed]                -62 dBm  
+  [ 7] 26:7F:0B:E0:FD:49  [Unnamed]                -64 dBm  
+  [ 8] 7D:A6:1A:8A:5E:31  [Unnamed]                -70 dBm  
+  [ 9] 11:9D:29:61:80:22  [Unnamed]                -74 dBm  
+  [10] 3D:F3:33:F4:34:54  [Unnamed]                -74 dBm  
+  [11] 04:43:2C:5B:12:82  [Unnamed]                -76 dBm  
+  [12] 34:CE:61:20:43:87  [Unnamed]                -78 dBm  
+  [13] 26:D3:4E:DF:28:92  [Unnamed]                -78 dBm  
+
+Select up to 99 device numbers (comma-separated), or press Enter to use top 99:
+  > Traceback (most recent call last):
+  File "E:\College materials\Sem5\BTP\server\src\demo_12_devices.py", line 1366, in <module>
+    main()
+  File "E:\College materials\Sem5\BTP\server\src\demo_12_devices.py", line 1322, in main
+    ok = asyncio.run(
+         ^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "E:\College materials\Sem5\BTP\server\src\demo_12_devices.py", line 551, in run_dynamic_real_devices_demo
+    real_macs = await scan_and_select_real_devices(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\College materials\Sem5\BTP\server\src\demo_12_devices.py", line 229, in scan_and_select_real_devices
+    choice = input("  > ").strip()
+             ^^^^^^^^^^^^^
+EOFError: EOF when reading a line

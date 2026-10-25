@@ -1,0 +1,24 @@
+# BT-Mux Benchmark Telemetry Summary Export (SRS REQ-13)
+
+Session ID,SESS_DYN_1791960532
+Test Name,"Dynamic Real BLE Transfer (N=3, N_max=2)"
+Time-Slice Window (T_slice ms),350
+Host Physical Cap (N_max),2
+Session Status,COMPLETED
+Created At,2026-10-14T06:49:19Z
+Started At,N/A
+Ended At,N/A
+
+=== Global Benchmark Metrics ===
+Metric,Value,Target Reference
+Total Packets Sent,114,N/A
+Total Packets Received,114,N/A
+Packet Delivery Ratio (PDR),100.00%,>= 95% at N=10 (SRS 5.1)
+Average Round-Trip Time (RTT ms),36.00 ms,N/A
+Average Handoff Overhead,30.00 ms,<= 300 ms (SRS 5.1)
+
+=== Per-Node Stream Metrics ===
+Node / Device ID,Priority Rank,Socket Status,Average RSSI (dBm),Average RTT (ms)
+45:D0:90:DA:B3:99,0,COMPLETED,N/A,N/A
+CA:E5:25:EC:B1:87,0,COMPLETED,N/A,N/A
+5B:05:ED:B3:DA:ED,0,COMPLETED,N/A,N/A

@@ -1,0 +1,30 @@
+nRF Connect, 2026-10-25
+DESKTOP-EP9QI4S (28:39:26:9D:19:5A)
+I	11:55:30.023	[Server] Server started
+V	11:55:30.024	[Server] No services
+D	11:55:30.029	[Broadcast] Action received: android.bluetooth.device.action.ACL_CONNECTED
+V	11:55:30.128	Connecting to 28:39:26:9D:19:5A...
+D	11:55:30.128	gatt = device.connectGatt(autoConnect = false, TRANSPORT_LE, preferred PHY = LE 1M)
+D	11:55:30.150	[Callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	11:55:30.151	Connected to 28:39:26:9D:19:5A
+D	11:55:30.151	wait(1600ms)
+V	11:55:31.761	Discovering services...
+D	11:55:31.761	gatt.discoverServices()
+D	11:55:31.769	[Callback] Services discovered with status: 0
+I	11:55:31.769	Services discovered
+V	11:55:31.777	Generic Access (0x1800)
+- Device Name [R] (0x2A00)
+- Appearance [R] (0x2A01)
+- Peripheral Preferred Connection Parameters [R] (0x2A04)
+- Central Address Resolution [R] (0x2AA6)
+Generic Attribute (0x1801)
+- Service Changed [I] (0x2A05)
+   Client Characteristic Configuration (0x2902)
+- Client Supported Features [R W] (0x2B29)
+- Database Hash [R] (0x2B2A)
+Device Information (0x180A)
+- PnP ID [R] (0x2A50)
+D	11:55:31.777	gatt.setCharacteristicNotification(00002a05-0000-1000-8000-00805f9b34fb, true)
+D	11:55:36.308	[Callback] Connection state changed with status: 0 and new state: DISCONNECTED (0)
+I	11:55:36.308	Disconnected
+D	11:55:36.365	[Broadcast] Action received: android.bluetooth.device.action.ACL_DISCONNECTED

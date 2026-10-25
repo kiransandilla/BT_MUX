@@ -1,0 +1,2137 @@
+======================================================================================
+      BT-MUX — MODE D: DYNAMIC REAL DEVICES (INTERACTIVE N & N_max)
+      Select any number of real BLE devices + your own N_max ceiling
+======================================================================================
+[*] Scanning for nearby BLE peripherals (6s, active mode)...
+
+[+] Discovered 16 BLE device(s):
+  [ 1] 52:85:9B:39:AB:DB  17296174                 -60 dBm  [NUS/BT-Mux]
+  [ 2] 5D:1B:44:86:94:A6  Akshad                   -64 dBm  [NUS/BT-Mux]
+  [ 3] CA:E5:25:EC:B1:87  Noise Airwave Max XR     -34 dBm  
+  [ 4] 6E:1C:A5:AD:25:21  MADAN                    -72 dBm  
+  [ 5] 41:BD:95:8F:85:3D  AKSHAD                   -78 dBm  
+  [ 6] 52:84:47:7C:37:9D  [Unnamed]                -60 dBm  
+  [ 7] 26:7F:0B:E0:FD:49  [Unnamed]                -64 dBm  
+  [ 8] 3F:FD:86:A3:2E:3C  [Unnamed]                -66 dBm  
+  [ 9] 04:43:2C:5B:12:82  [Unnamed]                -70 dBm  
+  [10] 23:F7:0F:C1:0D:47  [Unnamed]                -72 dBm  
+  [11] 7D:A6:1A:8A:5E:31  [Unnamed]                -72 dBm  
+  [12] 22:17:94:B1:D6:CB  [Unnamed]                -76 dBm  
+  [13] 26:D3:4E:DF:28:92  [Unnamed]                -76 dBm  
+  [14] 28:F1:54:69:11:6D  [Unnamed]                -76 dBm  
+  [15] 34:CE:61:20:43:87  [Unnamed]                -80 dBm  
+  [16] 35:37:8F:D6:40:68  [Unnamed]                -82 dBm  
+
+Select up to 99 device numbers (comma-separated), or press Enter to use top 99:
+  > 
+[+] Confirmed 2 real device(s) for simultaneous transfer:
+    52:85:9B:39:AB:DB  (17296174)
+    5D:1B:44:86:94:A6  (Akshad)
+
+Proceed? [Y/n]: 
+  Physical BLE controllers have a hardware connection ceiling (N_max).
+  BT-Mux multiplexes ALL 2 logical streams over N_max physical slots.
+  A smaller N_max (e.g. 2) proves stronger multiplexing; larger (e.g. 2) runs all-at-once.
+
+  Enter N_max (physical GATT slots, 1 – 2) [default 4]:   [>] N_max set to 2 — BT-Mux will rotate 2 streams over 2 slot(s).
+
+[>] Session configuration:
+    Real Devices (N)  : 2
+    Physical Slots    : N_max = 2
+    Multiplexing Ratio: 1.0x  (all slots occupied simultaneously)
+    T_slice           : 350 ms
+
+[*] Payload: test_img.jpeg (55535 bytes)
+[*] 2777 chunks × 2 devices = 5554 total transmissions.
+--------------------------------------------------------------------------------------
+[*] Pre-connecting to 2 real BLE device(s)...
+    [+] Connected: 52:85:9B:39:AB:DB
+    [+] Connected: 5D:1B:44:86:94:A6
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2777     0/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2777     0/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: 5D:1B:44:86:94:A6 (2.4GHz)  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2775     1/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2775     1/2777    [..............] ACTIVE (2.4GHz)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: 5D:1B:44:86:94:A6 (2.4GHz)  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     3/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     3/2777    [..............] ACTIVE (2.4GHz)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  0.90s | Physical Radio Limit: N_max = 4 SlotsTDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 1/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 1/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2773     4/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2772     5/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 2/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  1.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2770     6/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2768     8/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2766    10/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2764    12/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2763    14/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2761    15/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  2.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 3/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 1/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  52:85:9B:39:AB:DB*     OPEN     2759    17/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  3.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 4/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  4.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2758    19/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2756    20/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2754    22/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: 52:85:9B:39:AB:DB (2.4GHz)  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] ACTIVE (2.4GHz)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  5.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 5/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 1/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  6.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 6/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 2/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 7/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 3/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  7.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  8.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 8/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed:  9.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 4/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================TDMScheduler: Node '5D:1B:44:86:94:A6' failed link establishment within 1000 ms (attempt 9/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 5/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 10.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 11.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DEGRADED (RETRY)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 12.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------TDMScheduler: Node '5D:1B:44:86:94:A6' failed to reconnect after 10 consecutive attempts -> DROPPED (evicting from TDM loop): 
+SessionManager[SESS_DYN_1792868967]: Device '5D:1B:44:86:94:A6' marked DROPPED (10x reconnection failure); evicted from TDM rotation
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 6/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] PAUSED (TDM QUEUE)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 13.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 14.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 7/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 15.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 8/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 16.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------TDMScheduler: Node '52:85:9B:39:AB:DB' failed link establishment within 1000 ms (attempt 9/10) -> DEGRADED (bypass slot): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DEGRADED; pump stopped and chunks queued for retry (REQ-4)
+
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.10s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.25s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.40s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.55s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.70s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DEGRADED (RETRY)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 17.85s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.00s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.15s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.30s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.45s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.60s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.75s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 18.90s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+TDMScheduler: Node '52:85:9B:39:AB:DB' failed to reconnect after 10 consecutive attempts -> DROPPED (evicting from TDM loop): 
+SessionManager[SESS_DYN_1792868967]: Device '52:85:9B:39:AB:DB' marked DROPPED (10x reconnection failure); evicted from TDM rotation
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.05s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.20s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.35s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.50s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.65s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.80s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] PAUSED (TDM QUEUE)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 19.95s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DROPPED (10x FAIL)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+  [Config] N=2 devices | N_max=2 slots | Ratio=1.0x | T_slice=350 ms
+======================================================================================
+      BT-MUX: 12-REAL-DEVICE VIRTUAL SOCKET TIME-DIVISION MULTIPLEXER
+      Time Elapsed: 23.33s | Physical Radio Limit: N_max = 4 Slots
+======================================================================================
+  Slot 1: IDLE  |  Slot 2: IDLE  |  Slot 3: IDLE  |  Slot 4: IDLE
+--------------------------------------------------------------------------------------
+  Node Identifier        Socket   Queue   Done       Progress Bar       Physical Link
+  ----------------------------------------------------------------------------------
+  52:85:9B:39:AB:DB*     OPEN     2753    24/2777    [..............] DROPPED (10x FAIL)
+  5D:1B:44:86:94:A6*     OPEN     2773     5/2777    [..............] DROPPED (10x FAIL)
+======================================================================================
+  [*] All 2 nodes (*) are REAL physical BLE peripherals transmitting over 2.4 GHz.
+  [*] Notice: All Virtual Sockets remain continuously OPEN in user space.
+======================================================================================
+
+======================================================================================
+           MODE D — DYNAMIC REAL DEVICES TRANSFER REPORT
+======================================================================================
+Real Physical Devices (N):      2 (connected: 2)
+Physical GATT Slots (N_max):    2  [Multiplexing ratio: 1.0x]
+T_slice Window:                 350 ms
+Total File Chunks Transmitted:  29 / 5554
+Packet Delivery Ratio (PDR):    0.52%  (Target: >= 95.0%) -> FAIL
+User-Space RAM Footprint:       49.48 MB -> PASS
+Logical Virtual Sockets:        ALL PRESERVED OPEN (REQ-5 PASS)
+Total Duration:                 23.33 seconds
+--------------------------------------------------------------------------------------
+  Device MAC             Chunks         PDR        Status
+  --------------------------------------------------------
+  52:85:9B:39:AB:DB      24/2777         0.9%     DROPPED (10x FAIL)
+  5D:1B:44:86:94:A6      5/2777         0.2%     DROPPED (10x FAIL)
+======================================================================================
+[+] Telemetry CSV written: btmux_dynamic_telemetry_N2_Nmax2.csv
+======================================================================================
