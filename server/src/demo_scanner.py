@@ -7,7 +7,7 @@ from .demo_config import TARGET_DEVICE_PREFIX, SCAN_WAIT_TIME_SEC
 
 async def scan_and_select_devices(transport: BLETransport) -> List[Dict[str, Any]]:
     """Scans for BLE devices, filters by prefix, and prompts user for selection."""
-    print(f"[!] Waiting {SCAN_WAIT_TIME_SEC} seconds to ensure Android devices are detected...")
+    # print(f"[!] Waiting {SCAN_WAIT_TIME_SEC} seconds to ensure Android devices are detected...")
     await asyncio.sleep(SCAN_WAIT_TIME_SEC)
     
     discovered_devices = await transport.scan_for_devices()

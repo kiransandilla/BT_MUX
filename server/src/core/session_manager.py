@@ -3,6 +3,7 @@
 Authoritative source: BT-Mux_Agent_Instructions.md & SRS REQ-5, REQ-6, REQ-7, REQ-8.
 Decoupled completely from physical BLE libraries per BT-Mux_Hardware_Abstraction_Layer.md.
 """
+from src.demo_config import SESSION_MGR_FLUSH_PUMP_THROTTLE_SECONDS
 import asyncio
 import inspect
 import logging
@@ -232,10 +233,10 @@ class SessionManager:
                         await buf.handle_nack_or_timeout(chunk_to_send.chunk_id)
                 elif not chunk_to_send:
                     # If no chunks in buffer, yield briefly before rechecking
-                    await asyncio.sleep(0.015)
+                    await asyncio.sleep(SESSION_MGR_FLUSH_PUMP_THROTTLE_SECONDS)
 
                 # Yield cooperatively
-                await asyncio.sleep(0.0015)
+                await asyncio.sleep(SESSION_MGR_FLUSH_PUMP_THROTTLE_SECONDS)
 
         except asyncio.CancelledError:
             logger.debug("Flush pump cancelled for device '%s' (normal slot transition)", device_id)

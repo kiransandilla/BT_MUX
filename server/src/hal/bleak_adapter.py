@@ -6,6 +6,7 @@ Uses Bleak natively:
 - On Linux / Raspberry Pi: Communicates via BlueZ D-Bus
 Zero driver modification required (SRS 2.5 / 5.4).
 """
+from src.demo_config import BLEAK_CLIENT_CONNECT_TIMEOUT_SEC
 import asyncio
 import logging
 from typing import Any, Callable, Dict, List, Optional
@@ -66,7 +67,7 @@ class BleakTransport(BLETransport):
         try:
             # 0.5s timeout for fast connection attempts without stalling TDM slots
             # await asyncio.wait_for(client.connect(), timeout=0.5)
-            await asyncio.wait_for(client.connect(), timeout=3)
+            await asyncio.wait_for(client.connect(), timeout=BLEAK_CLIENT_CONNECT_TIMEOUT_SEC)
             self._clients[device_id] = client
 
             # Subscribe to RX notifications if characteristic is supported
