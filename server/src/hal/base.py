@@ -18,7 +18,12 @@ class BLETransport(ABC):
 
     @abstractmethod
     async def disconnect(self, device_id: str) -> None:
-        """Tear down physical GATT connection."""
+        """Tear down physical GATT connection.
+        
+        Fix 2: Implementations MUST block until the OS has fully processed
+        the HCI Disconnection Complete event, ensuring the physical radio
+        slot is definitively freed before returning.
+        """
         pass
 
     @abstractmethod

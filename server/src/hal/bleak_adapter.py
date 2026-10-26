@@ -1,17 +1,15 @@
 """Physical BLE Transport Adapter using Bleak (WinRT / BlueZ D-Bus).
-
 Authoritative source: BT-Mux_Hardware_Abstraction_Layer.md Sections 3, 4, 9.
 Uses Bleak natively:
-- On Windows: Communicates via WinRT (Windows.Devices.Bluetooth)
-- On Linux / Raspberry Pi: Communicates via BlueZ D-Bus
+On Windows: Communicates via WinRT (Windows.Devices.Bluetooth)
+On Linux / Raspberry Pi: Communicates via BlueZ D-Bus
 Zero driver modification required (SRS 2.5 / 5.4).
 """
-from src.demo_config import BLEAK_CLIENT_CONNECT_TIMEOUT_SEC
+from src.demo_config import BLEAK_CLIENT_CONNECT_TIMEOUT_SEC, BLEAK_CLIENT_DISCONNECT_TIMOUT_SEC
 import asyncio
 import logging
 from typing import Any, Callable, Dict, List, Optional
 from bleak import BleakClient, BleakScanner
-
 from ..config.constants import N_MAX_PHYSICAL_DEFAULT
 from .base import BLETransport
 
@@ -20,7 +18,6 @@ logger = logging.getLogger("btmux.hal.bleak")
 # Standard Nordic UART Service (NUS) RX/TX characteristics or generic UART characteristic UUID
 DEFAULT_TX_CHAR_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 DEFAULT_RX_CHAR_UUID = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
-
 
 class BleakTransport(BLETransport):
     """Concrete BLETransport adapter backed by Bleak."""
@@ -34,15 +31,21 @@ class BleakTransport(BLETransport):
         self.max_connections: int = max_connections
         self.tx_char_uuid: str = tx_char_uuid
         self.rx_char_uuid: str = rx_char_uuid
-
+        
         # Map of device_id -> active BleakClient instance or 'air_link'
         self._clients: Dict[str, Any] = {}
+        
+        # Fix 2: Track pending OS-level HCI Disconnection Complete events per device.
+        # This ensures disconnect() blocks until the OS has fully torn down the link.
+        self._disconnect_events: Dict[str, asyncio.Event] = {}
+        
         # Registered event callbacks
         self._callbacks: Dict[str, List[Callable[..., Any]]] = {
             "data": [],
             "connected": [],
             "disconnected": [],
         }
+        
         # self.ambient_fallback: bool = True
         self.ambient_fallback: bool = False
         self._lock: asyncio.Lock = asyncio.Lock()
@@ -58,23 +61,27 @@ class BleakTransport(BLETransport):
             return
 
         def on_disconnect(client: BleakClient) -> None:
-            logger.info("Bleak client '%s' disconnected by host/peripheral", device_id)
+            logger.info("Bleak client '%s' disconnected by host/peripheral (HCI Disconnection Complete)", device_id)
             self._clients.pop(device_id, None)
+            
+            # Fix 2: Signal the event so the awaiting disconnect() method can return
+            event = self._disconnect_events.get(device_id)
+            if event:
+                event.set()
+                
             self._trigger_event("disconnected", device_id)
 
         client = BleakClient(device_id, disconnected_callback=on_disconnect)
         logger.info("Connecting BleakClient to '%s'...", device_id)
+        
         try:
-            # 0.5s timeout for fast connection attempts without stalling TDM slots
-            # await asyncio.wait_for(client.connect(), timeout=0.5)
             await asyncio.wait_for(client.connect(), timeout=BLEAK_CLIENT_CONNECT_TIMEOUT_SEC)
             self._clients[device_id] = client
-
+            
             # Subscribe to RX notifications if characteristic is supported
             try:
                 def notification_handler(sender: Any, data: bytearray) -> None:
                     self._trigger_event("data", device_id, bytes(data))
-
                 await client.start_notify(self.rx_char_uuid, notification_handler)
             except Exception as e:
                 logger.debug("Characteristic notify subscription skipped on %s: %s", device_id, e)
@@ -84,19 +91,50 @@ class BleakTransport(BLETransport):
                 self._clients[device_id] = "air_link"
             else:
                 raise
-
+                
         logger.info("BleakClient link established for '%s'", device_id)
         self._trigger_event("connected", device_id)
 
     async def disconnect(self, device_id: str) -> None:
-        """Tear down physical GATT connection."""
-        client = self._clients.pop(device_id, None)
-        if client and client != "air_link" and getattr(client, "is_connected", False):
-            logger.info("Disconnecting BleakClient from '%s'...", device_id)
-            try:
-                await client.disconnect()
-            except Exception as exc:
-                logger.debug("Disconnect error: %s", exc)
+        """Tear down physical GATT connection.
+        
+        Fix 2: Blocks until the OS fires the HCI Disconnection Complete event
+        via the disconnected_callback, ensuring the slot is truly free at the 
+        hardware level before returning to the Scheduler.
+        """
+        client = self._clients.get(device_id)
+        
+        if not client or client == "air_link":
+            # Nothing to wait for at the OS level for air links or missing clients
+            self._trigger_event("disconnected", device_id)
+            return
+
+        if not getattr(client, "is_connected", False):
+            # Already disconnected at the client level, just clean up
+            self._clients.pop(device_id, None)
+            self._trigger_event("disconnected", device_id)
+            return
+
+        # Fix 2: Create and register the event BEFORE calling client.disconnect()
+        disconnect_event = asyncio.Event()
+        self._disconnect_events[device_id] = disconnect_event
+
+        logger.info("Disconnecting BleakClient from '%s' and awaiting OS HCI teardown...", device_id)
+        try:
+            await client.disconnect()
+        except Exception as exc:
+            logger.debug("Disconnect API error: %s", exc)
+
+        # Fix 2: Wait for the OS to actually process the disconnection.
+        try:
+            await asyncio.wait_for(disconnect_event.wait(), timeout=BLEAK_CLIENT_DISCONNECT_TIMOUT_SEC)
+            logger.info("OS confirmed HCI teardown for '%s'", device_id)
+        except asyncio.TimeoutError:
+            logger.warning("Timeout waiting for OS HCI teardown event for '%s'. Proceeding anyway.", device_id)
+        finally:
+            self._disconnect_events.pop(device_id, None)
+            self._clients.pop(device_id, None)
+
         self._trigger_event("disconnected", device_id)
 
     async def send(self, device_id: str, data: bytes) -> None:
@@ -104,7 +142,7 @@ class BleakTransport(BLETransport):
         client = self._clients.get(device_id)
         if not client:
             raise ConnectionResetError(f"Bleak client '{device_id}' is not connected")
-
+            
         if client == "air_link":
             # Over-the-air link layer tracking for ambient beacon devices
             await asyncio.sleep(0.005)
@@ -127,14 +165,13 @@ class BleakTransport(BLETransport):
         except Exception:
             pass
 
-    # --- DEBUG PRINTS START ---
+        # --- DEBUG PRINTS START ---
         print(f"\n[DEBUG BLEAK] Scanned characteristics for {device_id}:")
         for service in client.services:
             for char in service.characteristics:
                 print(f"  -> UUID: {char.uuid} | Properties: {char.properties}")
         print(f"[DEBUG BLEAK] Target char selected: {target_char}")
         # --- DEBUG PRINTS END ---
-
 
         if target_char:
             response_req = "write" in target_char.properties and "write-without-response" not in target_char.properties
@@ -225,4 +262,3 @@ class BleakTransport(BLETransport):
                     asyncio.create_task(res)
             except Exception as exc:
                 logger.error("Error in Bleak event callback '%s': %s", event, exc)
-

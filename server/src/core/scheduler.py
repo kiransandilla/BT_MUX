@@ -260,13 +260,24 @@ class TDMScheduler:
             return False
 
     async def _disconnect_node_graceful(self, device_id: str) -> None:
-        """Gracefully release physical GATT connection and notify session manager (SRS REQ-3)."""
+        """Gracefully release physical GATT connection and notify session manager (SRS REQ-3).
+        
+        Fix 2: The transport.disconnect() call now blocks until the OS confirms 
+        the HCI Disconnection Complete event. We do not free the active_slot 
+        until this method returns, ensuring the slot is physically free.
+        """
         try:
             await self.session_manager.on_physical_link_paused(device_id)
+            logger.info("Scheduler: Awaiting OS-level HCI teardown for '%s' (Fix 2)...", device_id)
+            
+            # This await now blocks until the Bleak adapter confirms the OS teardown
             await self.transport.disconnect(device_id)
+            
+            logger.info("Scheduler: Slot '%s' is now physically free.", device_id)
         except Exception as exc:
             logger.warning("Error disconnecting node '%s': %s", device_id, exc)
         finally:
+            # Only discard the slot after the OS has confirmed teardown
             self.active_slots.discard(device_id)
 
     async def _run_loop(self) -> None:
