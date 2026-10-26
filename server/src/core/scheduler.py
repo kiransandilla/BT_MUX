@@ -1,13 +1,12 @@
 """BT-Mux Time-Division Multiplexing (TDM) Scheduler.
-
 Authoritative source: BT-Mux_Agent_Instructions.md & SRS REQ-1, REQ-2, REQ-3, REQ-4.
 Coordinates batch rotation of physical GATT slots across N >= 10 logical peripheral streams.
 Decoupled strictly from BLE drivers via BLETransport interface (BT-Mux_Hardware_Abstraction_Layer.md).
 """
 import asyncio
 import logging
-from typing import Dict, List, Optional, Set
-
+from typing import Callable, Dict, List, Optional, Set
+from ..demo_config import TDM_GUARD_BAND_MS, GUARD_BAND_FLOOR_MS, GUARD_BAND_CEILING_MS
 from ..config.constants import (
     DEGRADED_TIMEOUT_MS,
     DEFAULT_T_SLICE_MS,
@@ -20,16 +19,23 @@ from .transport import BLETransport
 
 logger = logging.getLogger("btmux.core.scheduler")
 
+# Fix 1: Architectural floor/ceiling for the post-disconnect guard band.
+# These are NOT tunables exposed to the UI: the HCI link layer needs a minimum
+# quiet window to flush ACL buffers and reset its state machine, while the SRS
+# handoff budget (5.1, <= 300 ms) caps how long we may stall the rotation.
+
+
 
 class TDMScheduler:
     """TDM Scheduler rotating N_max physical radio slots across N logical streams.
-    
+
     Responsibilities:
-    - Queries host controller cap N_max dynamically via transport (REQ-1).
-    - Rotates peripheral batches in configurable T_slice windows (REQ-2).
-    - Gracefully disconnects physical GATT slots prior to connecting the next batch (REQ-3).
-    - Flags peripherals exceeding 1000ms connect timeout as DEGRADED_RETRY and bypasses slot (REQ-4).
-    - Supports dynamic adjustment of T_slice during active sessions (REQ-11).
+     - Queries host controller cap N_max dynamically via transport (REQ-1).
+     - Rotates peripheral batches in configurable T_slice windows (REQ-2).
+     - Gracefully disconnects physical GATT slots prior to connecting the next batch (REQ-3).
+     - Enforces a non-negotiable post-disconnect guard band before re-connecting (Fix 1).
+     - Flags peripherals exceeding DEGRADED_TIMEOUT as DEGRADED_RETRY and bypasses slot (REQ-4).
+     - Supports dynamic adjustment of T_slice during active sessions (REQ-11).
     """
 
     def __init__(
@@ -52,15 +58,13 @@ class TDMScheduler:
 
         # Round-robin queue of device IDs
         self.node_queue: List[str] = []
-
         # Currently occupied physical radio slots (bounded by self.n_max)
         self.active_slots: Set[str] = set()
-
         # Nodes flagged as degraded due to connection timeout or link failure (REQ-4)
         self.degraded_nodes: Set[str] = set()
 
         # Node status callbacks for UI / Telemetry updates
-        self._status_callbacks: List[callable] = []
+        self._status_callbacks: List[Callable] = []
 
         # Scheduler lifecycle loop task
         self._running: bool = False
@@ -76,7 +80,11 @@ class TDMScheduler:
         if device_id not in self.node_queue:
             self.node_queue.append(device_id)
             self.session_manager.get_or_create_socket(device_id)
-            logger.info("TDMScheduler: Registered node '%s' (total_nodes=%d)", device_id, len(self.node_queue))
+            logger.info(
+                "TDMScheduler: Registered node '%s' (total_nodes=%d)",
+                device_id,
+                len(self.node_queue),
+            )
 
     def unregister_node(self, device_id: str) -> None:
         """Remove a logical node from the scheduling queue."""
@@ -88,7 +96,11 @@ class TDMScheduler:
     def set_t_slice_ms(self, duration_ms: int) -> None:
         """Dynamically update T_slice duration during active test run (SRS REQ-11)."""
         duration_ms = min(max(duration_ms, T_SLICE_MIN_MS), T_SLICE_MAX_MS)
-        logger.info("TDMScheduler: Updated T_slice from %d ms to %d ms (REQ-11)", self.t_slice_ms, duration_ms)
+        logger.info(
+            "TDMScheduler: Updated T_slice from %d ms to %d ms (REQ-11)",
+            self.t_slice_ms,
+            duration_ms,
+        )
         self.t_slice_ms = duration_ms
 
     async def start(self) -> None:
@@ -99,9 +111,10 @@ class TDMScheduler:
             self._running = True
             self._loop_task = asyncio.create_task(self._run_loop(), name="tdm_scheduler_loop")
             logger.info(
-                "TDMScheduler started (N_max=%d, T_slice=%d ms, total_nodes=%d)",
+                "TDMScheduler started (N_max=%d, T_slice=%d ms, guard_band=%d ms, total_nodes=%d)",
                 self.n_max,
                 self.t_slice_ms,
+                self._effective_guard_band_ms(),
                 len(self.node_queue),
             )
 
@@ -111,6 +124,7 @@ class TDMScheduler:
             if not self._running:
                 return
             self._running = False
+
             if self._loop_task and not self._loop_task.done():
                 self._loop_task.cancel()
                 try:
@@ -118,22 +132,46 @@ class TDMScheduler:
                 except asyncio.CancelledError:
                     pass
 
-            # Gracefully tear down all active physical radio links
+            # Gracefully tear down all active physical radio links.
+            # No guard band needed here: there is no subsequent connect() to protect.
             active_devs = list(self.active_slots)
             for dev_id in active_devs:
                 await self._disconnect_node_graceful(dev_id)
 
             logger.info("TDMScheduler stopped. All physical radio slots freed.")
 
+    def _effective_guard_band_ms(self) -> int:
+        """Clamp the configured guard band into the mandatory 150-300 ms window.
+
+        Fix 1: the window is non-negotiable. A misconfigured value (0, negative,
+        or larger than the SRS handoff budget) must never remove the quiet period
+        or blow the <= 300 ms context-switch target (SRS 5.1).
+        """
+        clamped = min(
+            max(int(TDM_GUARD_BAND_MS), GUARD_BAND_FLOOR_MS),
+            GUARD_BAND_CEILING_MS,
+        )
+        if clamped != TDM_GUARD_BAND_MS:
+            logger.warning(
+                "TDMScheduler: Configured guard band %s ms is outside the mandatory "
+                "%d-%d ms window; enforcing %d ms (Fix 1).",
+                TDM_GUARD_BAND_MS,
+                GUARD_BAND_FLOOR_MS,
+                GUARD_BAND_CEILING_MS,
+                clamped,
+            )
+        return clamped
+
     async def step_rotation(self) -> None:
         """Execute a single deterministic TDM batch rotation step.
-        
+
         Lifecycle sequence:
         1. Select next batch of up to N_max nodes from round-robin queue (REQ-1).
-        2. Attempt connection with 1000ms timeout; flag timed-out nodes as DEGRADED (REQ-4).
+        2. Attempt connection with DEGRADED timeout; flag timed-out nodes (REQ-4).
         3. Hold connected batch active for T_slice time window (REQ-2).
         4. Gracefully disconnect physical radio slots prior to next batch (REQ-3).
-        5. Advance round-robin queue.
+        5. Enforce the non-negotiable post-disconnect guard band (Fix 1).
+        6. Advance round-robin queue; the next iteration may now connect.
         """
         if not self.node_queue:
             return
@@ -156,31 +194,63 @@ class TDMScheduler:
         slice_seconds = self.t_slice_ms / 1000.0
         await asyncio.sleep(slice_seconds)
 
-        # 3. Gracefully tear down physical connections concurrently to free slots before next batch (SRS REQ-3)
-        # Explicit disconnect prevents BLE controller buffer overrun and HCI error 0x09
+        # 3. Gracefully tear down physical connections concurrently to free slots before
+        #    the next batch (SRS REQ-3). Explicit disconnect prevents controller buffer
+        #    overrun and HCI error 0x09 (Host Timeout / connection resource exhaustion).
         if connected_nodes:
-            await asyncio.gather(*(self._disconnect_node_graceful(dev_id) for dev_id in connected_nodes))
+            await asyncio.gather(
+                *(self._disconnect_node_graceful(dev_id) for dev_id in connected_nodes)
+            )
 
-        # 4. Advance round-robin queue: rotate evaluated batch to the back
+        # =====================================================================
+        # FIX 1: STRICT, NON-NEGOTIABLE TDM GUARD BAND
+        # =====================================================================
+        # Returning from transport.disconnect() only means the host API call
+        # finished; it does NOT guarantee the controller on either side has
+        # flushed its ACL buffers and reset the link state machine. Reconnecting
+        # immediately re-uses a slot that is still logically occupied.
+        #
+        # This sleep is intentionally OUTSIDE the `if connected_nodes` block:
+        # an unsolicited drop can leave the controller mid-teardown even when
+        # this batch reported zero connected nodes, so the quiet window still
+        # applies before any new connect() is attempted.
+        #
+        # asyncio.sleep (never time.sleep) keeps the event loop responsive so
+        # Session Manager pumps, WebSocket telemetry and cancellation still run.
+        guard_band_ms = self._effective_guard_band_ms()
+        logger.info(
+            "TDMScheduler: Guard band start - holding radio quiet for %d ms "
+            "before next batch (Fix 1, REQ-3).",
+            guard_band_ms,
+        )
+        await asyncio.sleep(guard_band_ms / 1000.0)
+        logger.info(
+            "TDMScheduler: Guard band complete - radio slots available for next batch."
+        )
+        # =====================================================================
+
+        # 6. Advance round-robin queue: rotate evaluated batch to the back.
+        #    Done only AFTER the guard band, so the next step_rotation() cannot
+        #    reach its connect() phase early.
         self.node_queue = self.node_queue[batch_size:] + current_batch
 
     async def _connect_node_with_timeout(self, device_id: str) -> bool:
         """Connect to peripheral with strict DEGRADED timeout (SRS REQ-4)."""
         sock = self.session_manager.get_or_create_socket(device_id)
         sock.set_physical_state(SocketState.CONNECTING)
-
         timeout_sec = self.degraded_timeout_ms / 1000.0
+
         try:
-            # Enforce 1000ms timeout threshold per SRS REQ-4
             await asyncio.wait_for(self.transport.connect(device_id), timeout=timeout_sec)
             self.degraded_nodes.discard(device_id)
             # Notify session manager to launch automated flushing pump (REQ-8)
             await self.session_manager.on_physical_link_connected(device_id)
             return True
         except (asyncio.TimeoutError, Exception) as exc:
-            # Node failed to connect within 1000ms: flag as DEGRADED and bypass slot (REQ-4)
+            # Node failed to connect in time: flag as DEGRADED and bypass slot (REQ-4)
             logger.warning(
-                "TDMScheduler: Node '%s' failed link establishment within %d ms -> DEGRADED (bypass slot): %s",
+                "TDMScheduler: Node '%s' failed link establishment within %d ms -> DEGRADED "
+                "(bypass slot): %s",
                 device_id,
                 self.degraded_timeout_ms,
                 exc,
@@ -204,7 +274,9 @@ class TDMScheduler:
         try:
             while self._running:
                 await self.step_rotation()
-                # Brief cooperative yield between rotation handoffs
+                # Brief cooperative yield between rotation handoffs.
+                # This is NOT the guard band; the mandatory quiet window lives
+                # inside step_rotation() so deterministic single-step tests get it too.
                 await asyncio.sleep(0.005)
         except asyncio.CancelledError:
             pass
