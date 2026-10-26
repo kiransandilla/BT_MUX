@@ -1,0 +1,7 @@
+Fix 1: Implement a strict, non-negotiable guard band (e.g., 150ms to 300ms) in your TDM scheduler between the completion of a disconnect() and the initiation of the next connect(). This allows the HCI controllers on both sides to flush their ACL buffers and reset their state machines.
+
+Fix 2: In your Bleak adapter, ensure that the disconnected_callback is fired and awaited. This callback is triggered only when the OS receives the HCI Disconnection Complete event from the controller. Your scheduler should not consider a slot "free" until this specific event is logged.
+
+Fix 3: Since you cannot clear the Android cache from the Windows host, the peripheral (Android) must be configured to handle rapid reconnects. If you have control over the Android peripheral app, it should be configured to trigger a GATT Service Changed indication upon reconnection, or it should be set to clear its GATT cache on every disconnect. If you do not have control over the Android app, you may need to increase the TDM slice duration to allow Android's internal power-management timers to reset.
+
+Fix 4: Your wait_for_settle() mechanism in the Bleak adapter is the correct approach. However, it must be strictly enforced. The scheduler must not transition a slot to ACTIVE_PHYSICAL_LINK in the Session Manager until the peripheral has fully settled and the ATT MTU exchange is complete.
