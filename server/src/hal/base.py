@@ -45,3 +45,13 @@ class BLETransport(ABC):
     def get_max_connections(self) -> int:
         """Return host physical radio N_max connection limit (SRS REQ-1)."""
         pass
+
+    @abstractmethod
+    async def wait_for_settle(self, device_id: str) -> None:
+        """Wait for peripheral to fully settle after connection.
+        
+        Fix 4: Implementations MUST block until the ATT MTU exchange is complete
+        and GATT services are discoverable, ensuring the connection is truly ready
+        for data transmission before returning.
+        """
+        pass

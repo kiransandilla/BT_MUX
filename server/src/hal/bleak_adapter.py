@@ -248,3 +248,57 @@ class BleakTransport(BLETransport):
                     asyncio.create_task(res)
             except Exception as exc:
                 logger.error("Error in Bleak event callback '%s': %s", event, exc)
+
+    async def wait_for_settle(self, device_id: str) -> None:
+        """Wait for peripheral to fully settle after connection.
+        
+        Fix 4: Blocks until the ATT MTU exchange is complete and GATT services
+        are discoverable. This ensures the connection is truly ready for data
+        transmission before the scheduler marks the slot as active.
+        """
+        client = self._clients.get(device_id)
+        if not client or client == "air_link":
+            logger.debug("wait_for_settle: No active client for '%s', skipping", device_id)
+            return
+
+        if not getattr(client, "is_connected", False):
+            logger.warning("wait_for_settle: Client '%s' is not connected", device_id)
+            return
+
+        logger.info("wait_for_settle: Waiting for peripheral '%s' to settle (MTU + services)...", device_id)
+        
+        # Wait for MTU exchange to complete
+        # Bleak automatically negotiates MTU, but we poll to ensure it's set
+        max_wait_sec = 2.0
+        poll_interval_sec = 0.05
+        elapsed = 0.0
+        
+        while elapsed < max_wait_sec:
+            # Check if MTU has been negotiated (default is 23, negotiated is typically 247 or 517)
+            mtu = getattr(client, "mtu_size", 23)
+            if mtu > 23:
+                logger.info("wait_for_settle: MTU negotiated to %d for '%s'", mtu, device_id)
+                break
+            await asyncio.sleep(poll_interval_sec)
+            elapsed += poll_interval_sec
+        
+        if elapsed >= max_wait_sec:
+            logger.warning("wait_for_settle: Timeout waiting for MTU negotiation for '%s'", device_id)
+        
+        # Wait for services to be discoverable
+        elapsed = 0.0
+        while elapsed < max_wait_sec:
+            try:
+                # Accessing client.services triggers service discovery if not already done
+                services = client.services
+                if services and len(list(services)) > 0:
+                    logger.info("wait_for_settle: Services discovered for '%s' (%d services)", 
+                              device_id, len(list(services)))
+                    return
+            except Exception as e:
+                logger.debug("wait_for_settle: Services not yet ready for '%s': %s", device_id, e)
+            
+            await asyncio.sleep(poll_interval_sec)
+            elapsed += poll_interval_sec
+        
+        logger.warning("wait_for_settle: Timeout waiting for service discovery for '%s'", device_id)

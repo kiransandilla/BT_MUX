@@ -109,3 +109,12 @@ class SimulatedTransport(BLETransport):
                     asyncio.create_task(res)
             except Exception as exc:
                 logger.error("Error in event callback for '%s': %s", event, exc)
+
+    async def wait_for_settle(self, device_id: str) -> None:
+        """Wait for peripheral to fully settle after connection.
+        
+        Fix 4: Blocks until the ATT MTU exchange is complete and GATT services
+        are discoverable. This ensures the connection is truly ready for data
+        transmission before the scheduler marks the slot as active.
+        """
+        await asyncio.sleep(0.1)

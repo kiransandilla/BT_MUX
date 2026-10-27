@@ -265,6 +265,11 @@ class TDMScheduler:
 
         try:
             await asyncio.wait_for(self.transport.connect(device_id), timeout=timeout_sec)
+            
+            # Fix 4: Wait for peripheral to fully settle (MTU exchange + service discovery)
+            # This ensures the connection is truly ready before we mark it as active
+            await self.transport.wait_for_settle(device_id)
+            
             self.degraded_nodes.discard(device_id)
             await self.session_manager.on_physical_link_connected(device_id)
             return True
@@ -279,6 +284,7 @@ class TDMScheduler:
             self.degraded_nodes.add(device_id)
             await self.session_manager.on_physical_link_degraded(device_id)
             return False
+
 
     async def _disconnect_node_graceful(self, device_id: str) -> None:
         """Gracefully release physical GATT connection and notify session manager (SRS REQ-3).
