@@ -1,10 +1,10 @@
-# server/src/prod_demo.py
 """BT-Mux Physical BLE Node Testbed Live Demonstration CLI.
 Orchestrates the modular demo components.
 """
 import os
 import sys
 import asyncio
+import argparse
 from pathlib import Path
 
 _server_dir = str(Path(__file__).resolve().parent.parent)
@@ -12,9 +12,9 @@ if _server_dir not in sys.path:
     sys.path.insert(0, _server_dir)
 
 from src.config.constants import (
-    N_MAX_PHYSICAL_DEFAULT, 
-    PDR_TARGET, 
-    MEMORY_FOOTPRINT_LIMIT_MB, 
+    N_MAX_PHYSICAL_DEFAULT,
+    PDR_TARGET,
+    MEMORY_FOOTPRINT_LIMIT_MB,
     HANDOFF_LATENCY_TARGET_MS
 )
 from src.hal.factory import create_ble_transport
@@ -50,13 +50,12 @@ async def run_physical_viva_demonstration(
 
     # 2. Initialize HAL & Scan
     print("[+] Initializing Hardware Abstraction Layer (WinRT/BlueZ)...")
-    transport = create_ble_transport(transport_mode="winrt")
-    
+    transport = create_ble_transport(transport_mode="winrt", N_Max=n_max_slots)
     print_scanning_start()
     selected_devices = await scan_and_select_devices(transport)
     if not selected_devices:
         return False
-        
+
     node_ids = [dev['device_id'] for dev in selected_devices]
     print_selected_devices(selected_devices)
 
@@ -69,7 +68,6 @@ async def run_physical_viva_demonstration(
     print_payload_config()
     loop = asyncio.get_running_loop()
     file_path = await loop.run_in_executor(None, input, "Enter file path (or press Enter for default text): ")
-    
     total_expected_chunks = await generate_and_enqueue_chunks(
         session_mgr, node_ids, selected_devices, 
         file_path=file_path.strip() if file_path.strip() else None,
@@ -86,11 +84,11 @@ async def run_physical_viva_demonstration(
     ram_end_mb = get_memory_usage_mb()
     completed_chunks = execution_metrics["completed_chunks"]
     run_time = execution_metrics["run_time_sec"]
-    
+
     all_sockets_open = True
     for nid in node_ids:
         sock = session_mgr.get_socket(nid)
-        if not sock or sock.logical_state.value != "OPEN": # Adjust based on your VirtualSocket state enum
+        if not sock or sock.logical_state.value != "OPEN":
             all_sockets_open = False
 
     pdr = (completed_chunks / total_expected_chunks) if total_expected_chunks > 0 else 0.0
@@ -109,11 +107,8 @@ async def run_physical_viva_demonstration(
         all_sockets_open=all_sockets_open
     )
 
-    # Note: CSV export logic can remain in a separate telemetry module if desired, 
-    # or be added here. For now, we focus on the pretty printing as requested.
-    
     await session_mgr.close()
-    
+
     success = (
         pdr >= PDR_TARGET
         and ram_end_mb < MEMORY_FOOTPRINT_LIMIT_MB
@@ -122,7 +117,34 @@ async def run_physical_viva_demonstration(
     )
     return success
 
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="BT-Mux Physical BLE Testbed Demo")
+    parser.add_argument(
+        "--nodes", "-n",
+        type=int,
+        default=10,
+        help="Total number of logical nodes to test (default: 10)"
+    )
+    parser.add_argument(
+        "--max-slots", "-m",
+        type=int,
+        default=N_MAX_PHYSICAL_DEFAULT,
+        help=f"Maximum physical GATT slots (default: {N_MAX_PHYSICAL_DEFAULT})"
+    )
+    parser.add_argument(
+        "--chunks", "-c",
+        type=int,
+        default=5,
+        help="Number of chunks per node (default: 5)"
+    )
+    
+    args = parser.parse_args()
+
     os.environ["BLE_TRANSPORT"] = "winrt"
-    ok = asyncio.run(run_physical_viva_demonstration())
+    ok = asyncio.run(run_physical_viva_demonstration(
+        target_nodes=args.nodes,
+        n_max_slots=args.max_slots,
+        chunks_per_node=args.chunks
+    ))
     sys.exit(0 if ok else 1)

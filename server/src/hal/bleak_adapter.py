@@ -46,7 +46,6 @@ class BleakTransport(BLETransport):
             "disconnected": [],
         }
         
-        # self.ambient_fallback: bool = True
         self.ambient_fallback: bool = False
         self._lock: asyncio.Lock = asyncio.Lock()
 
@@ -105,12 +104,10 @@ class BleakTransport(BLETransport):
         client = self._clients.get(device_id)
         
         if not client or client == "air_link":
-            # Nothing to wait for at the OS level for air links or missing clients
             self._trigger_event("disconnected", device_id)
             return
 
         if not getattr(client, "is_connected", False):
-            # Already disconnected at the client level, just clean up
             self._clients.pop(device_id, None)
             self._trigger_event("disconnected", device_id)
             return
@@ -144,12 +141,10 @@ class BleakTransport(BLETransport):
             raise ConnectionResetError(f"Bleak client '{device_id}' is not connected")
             
         if client == "air_link":
-            # Over-the-air link layer tracking for ambient beacon devices
             await asyncio.sleep(0.005)
             logger.debug("BleakTransport: Air radio link confirmed %d bytes to '%s'", len(data), device_id)
             return
 
-        # Attempt write to target characteristic, or first available writable GATT characteristic
         target_char = None
         try:
             for service in client.services:
@@ -164,14 +159,6 @@ class BleakTransport(BLETransport):
                     break
         except Exception:
             pass
-
-        # --- DEBUG PRINTS START ---
-        print(f"\n[DEBUG BLEAK] Scanned characteristics for {device_id}:")
-        for service in client.services:
-            for char in service.characteristics:
-                print(f"  -> UUID: {char.uuid} | Properties: {char.properties}")
-        print(f"[DEBUG BLEAK] Target char selected: {target_char}")
-        # --- DEBUG PRINTS END ---
 
         if target_char:
             response_req = "write" in target_char.properties and "write-without-response" not in target_char.properties
@@ -204,7 +191,6 @@ class BleakTransport(BLETransport):
                     "is_physical": True,
                     "has_name": has_name,
                 })
-            # Prioritize named devices first, then sort by strongest RSSI
             result.sort(key=lambda x: (1 if x.get("has_name") else 0, x.get("rssi", -100)), reverse=True)
             return result
         except Exception as exc:
